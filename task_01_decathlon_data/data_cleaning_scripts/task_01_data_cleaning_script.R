@@ -14,5 +14,7 @@ decathlon <- read_rds("raw_data/decathlon.rds")
 decathlon_clean <- clean_names(decathlon)
 
 # View the data with cleaned names
-view(decathlon_clean)
+# view(decathlon_clean)
 
+# Change row_names to first column 'athlete_name'
+decathlon_clean <- tibble::rownames_to_column(decathlon_clean, var = "athlete_name")
