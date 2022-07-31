@@ -14,17 +14,20 @@ decathlon <- tibble::rownames_to_column(decathlon, var = "athlete_name")
 # View the data with cleaned names
 # view(decathlon_clean)
 
-
+# Change athletes' names to title
 decathlon <- decathlon %>% 
-  pivot_wider(names_from = Competition,
-              values_from = Points)
+  mutate(athlete_name = str_to_title(athlete_name))
 
 # Run `clean names` on the column names
 decathlon_clean <- clean_names(decathlon)
 
-# Remove
+# Remove the 'x' before any column names
 decathlon_clean <- decathlon_clean %>% 
   rename_with(~ gsub("^x", "", .x))
 
-view(decathlon_clean)
+# Relocate the rank, points, and competition columns to after athletes' names
+decathlon_clean <- decathlon_clean %>% 
+  relocate(c(rank:competition), .after = athlete_name)
 
+# View dataset
+view(decathlon_clean)
