@@ -1,0 +1,188 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(readxl)
+library(assertr)
+library(stringr)
+```
+read in tables
+```{r}
+candy_2015 <- read_excel("raw_data/boing-boing-candy-2015.xlsx")
+candy_2016 <- read_excel("raw_data/boing-boing-candy-2016.xlsx")
+candy_2017 <- read_excel("raw_data/boing-boing-candy-2017.xlsx")
+```
+
+clean names
+```{r}
+candy_2015 <- clean_names(candy_2015)
+candy_2016 <- clean_names(candy_2016)
+candy_2017 <- clean_names(candy_2017)
+```
+
+look at names
+```{r}
+candy_2015 %>%
+  names()
+
+candy_2016 %>% 
+  names()
+
+candy_2017 %>% 
+  names()
+```
+
+--------------------------------------------------------------------------------
+# 2015
+
+
+pivot longer
+```{r}
+candy_2015_longer <- candy_2015 %>% 
+  pivot_longer(c(4:96, 115),
+               names_to = "candies",
+               values_to = "rating")
+
+candy_2015_longer
+```
+
+
+add year column
+move new columns
+select columns
+rename columns
+```{r}
+candy_2015_clean <- candy_2015_longer %>% 
+  mutate(year = 2015) %>% 
+  relocate(c(candies:year), .after = timestamp) %>% 
+  select(c(candies:are_you_going_actually_going_trick_or_treating_yourself)) %>% 
+  rename(age = how_old_are_you,
+         trick_or_treating = are_you_going_actually_going_trick_or_treating_yourself)
+```
+
+
+
+change age column to numeric
+```{r}
+candy_2015_clean <- candy_2015_clean %>% 
+  mutate(age = as.numeric(age))
+```
+
+
+filter ages
+```{r}
+candy_2015_clean <- candy_2015_clean %>% 
+  filter(age > 4,
+         age < 100)
+```
+
+add countries
+```{r}
+candy_2015_clean <- candy_2015_clean %>% 
+  mutate(country = "",
+         country = na_if(country, ""),
+         gender = "",
+         gender = na_if(gender, ""))
+```
+
+
+```{r}
+candy_2015_clean %>%
+  arrange(candies) %>% 
+  distinct(candies)
+```
+
+```{r}
+candy_2015_clean %>% 
+  distinct(rating)
+```
+
+```{r}
+candy_2015_clean %>% 
+  distinct(trick_or_treating)
+```
+
+
+--------------------------------------------------------------------------------
+
+# 2016
+
+```{r}
+candy_2016_longer <- candy_2016 %>% 
+  pivot_longer(c(7:106),
+               names_to = "candies",
+               values_to = "rating")
+
+candy_2016_longer
+```
+
+```{r}
+candy_2016_clean <- candy_2016_longer %>% 
+  mutate(year = 2016) %>% 
+  relocate(c(candies:year), .after = timestamp) %>% 
+  select(c(candies:which_country_do_you_live_in)) %>% 
+  rename(age = how_old_are_you,
+         trick_or_treating = are_you_going_actually_going_trick_or_treating_yourself,
+         gender = your_gender,
+         country = which_country_do_you_live_in)
+```
+
+
+```{r}
+candy_2016_clean <- candy_2016_clean %>% 
+    relocate(age, .after = year)
+
+candy_2016_clean <- candy_2016_clean %>% 
+  relocate(gender, .after = country)
+```
+
+
+```{r}
+candy_2016_clean <- candy_2016_clean %>% 
+  mutate(age = as.numeric(age))
+```
+
+```{r}
+candy_2016_clean <- candy_2016_clean %>% 
+  filter(age > 4,
+         age < 100)
+```
+
+```{r}
+candy_2016_clean <- candy_2016_clean %>% 
+  mutate(country = str_to_title(country))
+```
+
+
+
+
+```{r}
+candy_2016_clean %>% 
+  arrange(candies) %>% 
+  distinct(candies)
+```
+
+```{r}
+candy_2016_clean %>% 
+  distinct(rating)
+```
+
+```{r}
+candy_2016_clean %>% 
+  distinct(gender)
+```
+
+```{r}
+candy_2016_clean %>% 
+  distinct(trick_or_treating)
+```
+
+```{r}
+candy_2016_clean %>% 
+  distinct(country)
+```
+
