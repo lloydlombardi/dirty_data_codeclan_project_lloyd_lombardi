@@ -51,4 +51,6 @@ decathlon_clean %>%
   verify(`1500m_(s)` > 230)
 
 # View dataset
-view(decathlon_clean)
+# view(decathlon_clean)
+
+write_csv(decathlon_clean, "clean_data/decathlon_clean.csv")
