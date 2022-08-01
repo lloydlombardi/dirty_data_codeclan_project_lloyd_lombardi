@@ -1820,10 +1820,125 @@ dbl (12): rank, points, 100m_(s), long_jump_(m), shot_put_(m), high_jump_(m), 40
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>In the above code chunk, the intention was to find the athlete with
+the longest jump. To achieve this, the data was arranged by the
+<code>long_jump_(m)</code> column. The data was then arranged in
+descending order to find the longest jump first. The top row was then
+returned using the head function.</p>
+</div>
+<div id="what-was-the-average-100m-time-in-each-competition" class="section level1">
+<h1>2. What was the average 100m time in each competition?</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVjYXRobG9uX2NsZWFuICU+JSBcbiAgZ3JvdXBfYnkoY29tcGV0aXRpb24pICU+JSBcbiAgc3VtbWFyaXNlKGF2Z18xMDBtX3RpbWUgPSByb3VuZChtZWFuKGAxMDBtXyhzKWApLCAyKSkgJT4lIFxuICB1bmdyb3VwKClcbmBgYCJ9 -->
+<pre class="r"><code>decathlon_clean %&gt;% 
+  group_by(competition) %&gt;% 
+  summarise(avg_100m_time = round(mean(`100m_(s)`), 2)) %&gt;% 
+  ungroup()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFQTzA0RE1SQ2RMREdRUlJ1UWNnWVF6YTZDb0tCQlNoR1JFZ21CbENKU05EZ21XSGh0eSt2dzZiaEJEc0ZOdUVST1FwdkYzcXdMN0dMODVzM01tM24zNCtsbE9rMEJZQSs2aVl2RVFTQ1BEN2Y1TlRRTWRLQUxQZjkvdVBMQUFVK2VOUCt1Y0RobUZDdUxKdVIzNHJQVW5FNGM3dnUrMGRucy9QZG5QUnVkYnRJYi9iMkpoSW5Fa2xXUjZCRlZwV2FXVzY1a1MyWDR0cHhmRElmbDNQS1NSU0k5bzk2TElKUjVvUzhYNnJyZXh0dW93Q3BzQzJTNlFJdkZzMEd2Qy9ISWdkTCtERGVVZVA4a0d1NllpRGhlU1gvSklxY3ZLL21hWC9rRlRYbjNzaFluLzdGZm1kU3RGR21sOXBsY2NzbkM3UUtmbUdpVHZuUGNHQzYwNGRJR0o0NnRDcXNzaHI2VUtoR1l4aHRzL3dCWDJWdGc5Z0VBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["competition"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_100m_time"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Decastar","2":"11.18"},{"1":"OlympicG","2":"10.92"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 2 asks to find the average 100m time in each competition.
+The first step was to group the athletes by competition, to allow for
+analysis. The summarise verb was then employed to find the mean times in
+either competition. The mean times were rounded to 2 decimal figures to
+keep to the formatting of the original dataset. The data was the
+ungrouped so further analysis is not affected.</p>
+</div>
+<div id="who-had-the-highest-total-points-across-both-competitions" class="section level1">
+<h1>3. Who had the highest total points across both competitions?</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVjYXRobG9uX2NsZWFuICU+JSBcbiAgZ3JvdXBfYnkoYXRobGV0ZV9uYW1lKSAlPiUgXG4gIHN1bW1hcmlzZSh0b3RhbF9wb2ludHMgPSBzdW0ocG9pbnRzKSkgJT4lIFxuICBzbGljZV9tYXgodG90YWxfcG9pbnRzLCBuID0gMSkgJT4lIFxuICB1bmdyb3VwKClcbmBgYCJ9 -->
+<pre class="r"><code>decathlon_clean %&gt;% 
+  group_by(athlete_name) %&gt;% 
+  summarise(total_points = sum(points)) %&gt;% 
+  slice_max(total_points, n = 1) %&gt;% 
+  ungroup()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRd1c0Q0lSQ2RwZExHalJxVGZzZHVZbnJ4MkVQakI5aWFlRE80MHJvcHdnWXdldlNuK2gvOUluVUdJVkhtQUk4M2VmTjRNLzlZdnBYTEVnQ2VvTWZ3NUFpQkw3NW0xUlFDQXdYMG9FLzNFZHV2Q0lnYzN6V2VQK1hhS29sb1JPejcvOThKUWozSXVSWTc2YUtVUlhJZy9GWkpMMWZVVEp3M1hxaFZaMXJ0WFRha2I4MmhUb09HTklpc0xsaTVXNk9FYzlsSHk0M3dvdjYyNUFWd3ppUXZwdk90MFNoaWxKSm40c0pteEhpdjZTZWJxdG51OVc4MW1aQkQ2TjlxR0hGeGg5bk5rMTNpTEo1V0tQVlBxOU1HdUJKcnFlSmpoSkZENHJxenVKRVVCVmxYaDAwbHBqRXFNU0Vjbks4SDlzZWYzUUVBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["athlete_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["total_points"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Sebrle","2":"17110"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The aim of this question was to find the athlete who had the highest
+total points across both competitions. The data was initially group by
+<code>athlete_name</code> as numerous athletes competed across both
+competitions. The total points were then summed together based on this
+grouping. A <code>slice_max</code> was then used to find the athlete
+with the highest total points. The data was the ungrouped so further
+analysis is not affected.</p>
+</div>
+<div id="what-was-the-shot-put-scores-for-the-top-three-competitors-in-each-competition" class="section level1">
+<h1>4. What was the shot-put scores for the top three competitors in
+each competition?</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9wX3RocmVlX2NvbXBldGl0b3JzIDwtIGRlY2F0aGxvbl9jbGVhbiAlPiVcbiAgYXJyYW5nZShyYW5rKSAlPiUgXG4gIGhlYWQoNikgJT4lIFxuICBzZWxlY3QoYXRobGV0ZV9uYW1lLCByYW5rLCBwb2ludHMsIGNvbXBldGl0aW9uLCBgc2hvdF9wdXRfKG0pYCkgXG5cbnRvcF90aHJlZV9jb21wZXRpdG9yc1xuYGBgIn0= -->
+<pre class="r"><code>top_three_competitors &lt;- decathlon_clean %&gt;%
+  arrange(rank) %&gt;% 
+  head(6) %&gt;% 
+  select(athlete_name, rank, points, competition, `shot_put_(m)`) 
+
+top_three_competitors</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6NSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IMOXIDUiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBNlZTdTA3RE1CUTFwUWx0YUt0SzdNeXRSQUlDQ1NFa1JDUXFHQmdRTDZsRFJlV21oa1pOWWl0eGdHNWR1ckR3RVYzNEJNUlN5ayt3OEFjc0xEQXdOTmhKaklyVkRVdk92ZWNjMzl5SGZWS3JiMmgxRFFBd0Q3SVo5bFdZQzVUenMzMTlDOFFNbUFOWmtPZjJsc2xMWEdXN3pMYWFDdW9wYXZrT21vbXlldzdzemZEVlErZ1RmQzBoQUVvYzdYNkFlQWxyQXNubS9sb1JaejRYK2pFL3ZranM2Q2s1Tjk1TzdHaVlZcTJmeGszM2thc2hDd1lVK2dJZk9UMlgyTmJCdjNWUm4vN3crWExmcUpwcmpRcDN6SlhCOHVQeCs4QTBRb1lxWDZaK3QwT0dyNXE1K2hicjBnVW9IblJSa0JhdHBHUUIwbzZES0dweVVRemFoMTVYakpaZzI2TkJpaFl0N0JKRWJXcGpUL3dnNkdEYUpDRnRWdHlxbERIdjR4dERaQzJ5bmVGemk2TG9XeTdOY21BZ1NoT2sxb1lVR3BjK0x3eUFpUlN5Z0FtdmdnVmxwaC9WNzJ2ekphSWNlcnlTdG01MVFxK3JyMi95RExHZXJHTHFxMU8ra3VUTVJOTFFWT1JkMlo0WWwrTEFGbkpTVUdJdHh4MGJ4R2VERTYwd05qQW9wbENjMHl6c0NDWnVEa3grQUJUNXJDbE1Bd0FBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["athlete_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rank"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["points"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["competition"],"name":[4],"type":["chr"],"align":["left"]},{"label":["shot_put_(m)"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Sebrle","2":"1","3":"8217","4":"Decastar","5":"14.83"},{"1":"Sebrle","2":"1","3":"8893","4":"OlympicG","5":"16.36"},{"1":"Clay","2":"2","3":"8122","4":"Decastar","5":"14.26"},{"1":"Clay","2":"2","3":"8820","4":"OlympicG","5":"15.23"},{"1":"Karpov","2":"3","3":"8099","4":"Decastar","5":"14.77"},{"1":"Karpov","2":"3","3":"8725","4":"OlympicG","5":"15.93"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 4 was asking for the shot put scores for the top three
+competitors in each competition. This was interpreted as finding the
+shot put distance of the athletes ranked 1st, 2nd, and 3rd in both
+competitions. The data was arranged by rank, with rank 1 of either
+competition being returned first. The top 6 rows were then selected as
+this would encapsulate 1st, 2nd, and 3rd in either competition. The
+<code>athlete_name</code>, <code>rank</code>, <code>points</code>,
+<code>competition</code>, and <code>shot_put_(m)</code> were selected
+and output.</p>
+</div>
+<div id="what-was-the-average-points-for-competitors-who-ran-the-400m-in-less-than-50-seconds-vs.-those-than-ran-400m-in-more-than-50-seconds" class="section level1">
+<h1>5. What was the average points for competitors who ran the 400m in
+less than 50 seconds vs. those than ran 400m in more than 50
+seconds?</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoxMiwibmNvbCI6MTQsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTIgw5cgMTQiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBNzFXVFd3YlJSVGVoTGhOak9PMmlVL05ENzl4M1RTN3JaVkUvSlRpRVUzaTJHbWF0RTFGa1NwWlUzdHJiN3plMlozZERUUklpQjdDQVlFUVVwSDRrZWdCRGtoSVBSZUpVZ2tPWEtoRUQ2Z1hMcjF3YUNzdUVBNUlqZG1aOTJaeGZlVEFTT3R2MzV2MzN2ZCt4aDZmbmpzM25UeVgxRFR0TWEydk4vcE1SSzlhNHV6YWd2NjhKalZhajlhbkRRaDhJOW9lamw3UzBiTTNlbEs0c2V1MWtEZlpCa29EeTVRSGxtUFNFQldKUlpNN1NuajhGUmJ5ZW1qVkhlWW9oMVZXWjl5MDR3akpNOVVHTTUwTFpyV3B2RllwYnpaWXkzU2FERlY5YXlHM1ZJUWx5bTFyZ3pxK3NsOWl2R2x0c3JyTjRpek8yalZxbzdEN09QVXA5eWtXa3lJWlRTN3lOT0t6aUpPSVdjUWM0Z3ppYzRndklMNkllQlR4SlUwdDRMbFpBLzEzbTRpemdOOStDSGp6Q3VMN3VQODc0aWpnamF1SUh5RVcwZitCNHVrY1RQK2NXYVYrUVBsL2xWZnNTeTNYcWhiL2QxbjFLM3N0czNtM2VJMGNLSXFYUlpLOTRYNXhKM21NWksrZnVyODFmcDFNL0haUkxETHhrMWkzU0ZiWjViYS8vK0Q4UVpMOUNuQUM3Yk5oSk9iK1V2NHh6K2g1NlVCR2prSDhjY1NSYWJuSUdNcGpLTytYb2tkR0JMaGZrckdrTkNDanlEK3lEVHo3dTNnTUtnMkkvZ3o0VGQwVzI2ZkpwSUJURDRpQjhmVjNJZDVodEQrRS9KT2ZpUFVwMFQ4WGdaOGdoL2JJeElsK1J5WVE4MmpRajBJYjRoVWVpblMyZjFCSU5OSFZ6SnVGSGRuZURORXdQbUtoTGRLNXYxVm9RMTJGaDhDcjVKaW5OQXQxbHZaQkhhWDNZQTZsS3hDM1pNbzRwSlNGT1pXMlVQNEYvZVpSVnZhWG9MNHk4UDNiTjZ4WC94WG1aSXlEZlBoVm1SQ1pha0wvcHZDODZGam5GUExwT0E5ZDlka0FPK05IT2ErWXAvZ1U5THVJNTJuaExlQ1pleGx3NFFUcVp5RGZ1VDlnWHNmdndiem12NGI0eFg0NGQvT1hJZDdpbXJTUGVZYnVnbjRZOHgzR2M1UEJlYWpmSTRYRGVDNFVEcUYrQ1BOVThyNnV2cTNndVM5UFFuNG5QZ1o1Q2Z0Vy9nYjZmZEtEK2EwR3dMK01kWlR4KzFKK0IrWjNFbm1XVitTNWkzbThCZGgzS2NUemJnUHlvNUN2OXpmVTZiVmdIbDRGK1BtVE1FOXZIZnJyL3d6eHZjL0FqMStXZVhYZFJBbUh0a3dmZit6U3FFelJvR0diZ1ZrUm0rcVM0TlJSZDhndWwxbE9FTjhRVmRaeXpjQUtyUGdlNnM4Zk9kS3E1UHlES0EvYXpLbFgxc09XVzhtMWxETGxOMWhRY2NPZ1F6ZllzT3FOYnNQK21VZWo3Y25uSTdrUjhwcHRkcWlUTmN1dmhuNkhZOXBsa2NVR0RlMU9qdFE2M1REdDZGcnQwQTNrWnhYSG8vMFo0T3gxUS9Wb01IcDYzNDQrMnUzMm45Mk5yTnJVVjQzc2lWT2lBVFV1Y3RGR1RkdnBjdG5OWE5HenlLbFgvQmRJZERuMzhDN0YzdEFSbWRUMGFpTjBtdnAwWGpESWZWaUQrSjdxZUU4RFoyOGJZeVhVQ0UybkhyVkFKVy9UQzZhNjBkTlJ5YkppdytYUm1GVXBrZFkzQWhiRU4zK3l5bXlsa2NWcE8vOEE5WmIvM1FNSkFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["athlete_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rank"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["points"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["competition"],"name":[4],"type":["chr"],"align":["left"]},{"label":["100m_(s)"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["long_jump_(m)"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["shot_put_(m)"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["high_jump_(m)"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["400m_(s)"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["110m_hurdle_(s)"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["discus_(m)"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["pole_vault_(m)"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["javeline_(m)"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["1500m_(s)"],"name":[14],"type":["dbl"],"align":["right"]}],"data":[{"1":"Yurkov","2":"5","3":"8036","4":"Decastar","5":"11.34","6":"7.09","7":"15.19","8":"2.10","9":"50.42","10":"15.31","11":"46.26","12":"4.72","13":"63.44","14":"276.40"},{"1":"Martineau","2":"9","3":"7802","4":"Decastar","5":"11.64","6":"6.81","7":"14.57","8":"1.95","9":"50.14","10":"14.93","11":"47.60","12":"4.92","13":"52.33","14":"262.10"},{"1":"Hernu","2":"10","3":"7733","4":"Decastar","5":"11.37","6":"7.56","7":"14.41","8":"1.86","9":"51.10","10":"15.06","11":"44.99","12":"4.82","13":"57.19","14":"285.10"},{"1":"Bourguignon","2":"13","3":"7313","4":"Decastar","5":"11.36","6":"6.80","7":"13.46","8":"1.86","9":"51.16","10":"15.67","11":"40.49","12":"5.02","13":"54.68","14":"291.70"},{"1":"Pogorelov","2":"11","3":"8084","4":"OlympicG","5":"10.95","6":"7.31","7":"15.10","8":"2.06","9":"50.79","10":"14.21","11":"44.60","12":"5.00","13":"53.45","14":"287.63"},{"1":"Schoenbeck","2":"12","3":"8077","4":"OlympicG","5":"10.90","6":"7.30","7":"14.77","8":"1.88","9":"50.30","10":"14.34","11":"44.41","12":"5.00","13":"60.89","14":"278.82"},{"1":"Parkhomenko","2":"20","3":"7918","4":"OlympicG","5":"11.14","6":"6.61","7":"15.69","8":"2.03","9":"51.04","10":"14.88","11":"41.90","12":"4.80","13":"65.82","14":"277.94"},{"1":"Turi","2":"23","3":"7708","4":"OlympicG","5":"11.08","6":"6.91","7":"13.62","8":"2.03","9":"51.67","10":"14.26","11":"39.83","12":"4.80","13":"59.34","14":"290.01"},{"1":"Karlivans","2":"25","3":"7583","4":"OlympicG","5":"11.33","6":"7.26","7":"13.30","8":"1.97","9":"50.54","10":"14.98","11":"43.34","12":"4.50","13":"52.92","14":"278.67"},{"1":"Korkizoglou","2":"26","3":"7573","4":"OlympicG","5":"10.86","6":"7.07","7":"14.81","8":"1.94","9":"51.16","10":"14.96","11":"46.07","12":"4.70","13":"53.05","14":"317.00"},{"1":"Uldal","2":"27","3":"7495","4":"OlympicG","5":"11.23","6":"6.99","7":"13.53","8":"1.85","9":"50.95","10":"15.09","11":"43.01","12":"4.50","13":"60.00","14":"281.70"},{"1":"Casarsa","2":"28","3":"7404","4":"OlympicG","5":"11.36","6":"6.68","7":"14.92","8":"1.94","9":"53.20","10":"15.39","11":"48.66","12":"4.40","13":"58.62","14":"296.12"}],"options":{"columns":{"min":{},"max":[10],"total":[14]},"rows":{"min":[10],"max":[10],"total":[12]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The goal for this code was to find the average points for competitors
+who ran 400m in less than 50 seconds vs. those than ran 400m in more
+than 50 seconds. The process was to filter the data by both set of
+conditions and then calculate the mean points based on the former
+condition. The average points for competitors who ran 400m in less than
+50 seconds was returned in a tibble firstly. The average points for
+competitors who ran 400m in more than 50 seconds was returned in a
+tibble secondly.</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIExvYWQgaW4gbGlicmFyaWVzCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShoZXJlKQpgYGAKCiMgUmVhZCBpbiBjc3YKYGBge3J9CmRlY2F0aGxvbl9jbGVhbiA8LSByZWFkX2NzdihoZXJlKCJjbGVhbl9kYXRhL2RlY2F0aGxvbl9jbGVhbi5jc3YiKSkKYGBgCgojIDEuIFdobyBoYWQgdGhlIGxvbmdlc3QgbG9uZyBqdW1wIHNlZW4gaW4gdGhlIGRhdGE/CmBgYHtyfQpkZWNhdGhsb25fY2xlYW4gJT4lIAogIGFycmFuZ2UoZGVzYyhgbG9uZ19qdW1wXyhtKWApKSAlPiUgCiAgaGVhZCgxKQpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIExvYWQgaW4gbGlicmFyaWVzCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShoZXJlKQpgYGAKCiMgUmVhZCBpbiBjc3YKYGBge3J9CmRlY2F0aGxvbl9jbGVhbiA8LSByZWFkX2NzdihoZXJlKCJjbGVhbl9kYXRhL2RlY2F0aGxvbl9jbGVhbi5jc3YiKSkKYGBgCgojICAxLiBXaG8gaGFkIHRoZSBsb25nZXN0IGxvbmcganVtcCBzZWVuIGluIHRoZSBkYXRhPwpgYGB7cn0KZGVjYXRobG9uX2NsZWFuICU+JSAKICBhcnJhbmdlKGRlc2MoYGxvbmdfanVtcF8obSlgKSkgJT4lCiAgaGVhZCgxKQpgYGAKSW4gdGhlIGFib3ZlIGNvZGUgY2h1bmssIHRoZSBpbnRlbnRpb24gd2FzIHRvIGZpbmQgdGhlIGF0aGxldGUgd2l0aCB0aGUgbG9uZ2VzdCBqdW1wLgpUbyBhY2hpZXZlIHRoaXMsIHRoZSBkYXRhIHdhcyBhcnJhbmdlZCBieSB0aGUgYGxvbmdfanVtcF8obSlgIGNvbHVtbi4KVGhlIGRhdGEgd2FzIHRoZW4gYXJyYW5nZWQgaW4gZGVzY2VuZGluZyBvcmRlciB0byBmaW5kIHRoZSBsb25nZXN0IGp1bXAgZmlyc3QuClRoZSB0b3Agcm93IHdhcyB0aGVuIHJldHVybmVkIHVzaW5nIHRoZSBoZWFkIGZ1bmN0aW9uLgoKCiMgMi4gV2hhdCB3YXMgdGhlIGF2ZXJhZ2UgMTAwbSB0aW1lIGluIGVhY2ggY29tcGV0aXRpb24/CmBgYHtyfQpkZWNhdGhsb25fY2xlYW4gJT4lIAogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUgCiAgc3VtbWFyaXNlKGF2Z18xMDBtX3RpbWUgPSByb3VuZChtZWFuKGAxMDBtXyhzKWApLCAyKSkgJT4lIAogIHVuZ3JvdXAoKQpgYGAKUXVlc3Rpb24gMiBhc2tzIHRvIGZpbmQgdGhlIGF2ZXJhZ2UgMTAwbSB0aW1lIGluIGVhY2ggY29tcGV0aXRpb24uClRoZSBmaXJzdCBzdGVwIHdhcyB0byBncm91cCB0aGUgYXRobGV0ZXMgYnkgY29tcGV0aXRpb24sIHRvIGFsbG93IGZvciBhbmFseXNpcy4KVGhlIHN1bW1hcmlzZSB2ZXJiIHdhcyB0aGVuIGVtcGxveWVkIHRvIGZpbmQgdGhlIG1lYW4gdGltZXMgaW4gZWl0aGVyIGNvbXBldGl0aW9uLgpUaGUgbWVhbiB0aW1lcyB3ZXJlIHJvdW5kZWQgdG8gMiBkZWNpbWFsIGZpZ3VyZXMgdG8ga2VlcCB0byB0aGUgZm9ybWF0dGluZyBvZiB0aGUgb3JpZ2luYWwgZGF0YXNldC4KVGhlIGRhdGEgd2FzIHRoZSB1bmdyb3VwZWQgc28gZnVydGhlciBhbmFseXNpcyBpcyBub3QgYWZmZWN0ZWQuCgoKIyAzLiBXaG8gaGFkIHRoZSBoaWdoZXN0IHRvdGFsIHBvaW50cyBhY3Jvc3MgYm90aCBjb21wZXRpdGlvbnM/CmBgYHtyfQpkZWNhdGhsb25fY2xlYW4gJT4lIAogIGdyb3VwX2J5KGF0aGxldGVfbmFtZSkgJT4lIAogIHN1bW1hcmlzZSh0b3RhbF9wb2ludHMgPSBzdW0ocG9pbnRzKSkgJT4lIAogIHNsaWNlX21heCh0b3RhbF9wb2ludHMsIG4gPSAxKSAlPiUgCiAgdW5ncm91cCgpCmBgYApUaGUgYWltIG9mIHRoaXMgcXVlc3Rpb24gd2FzIHRvIGZpbmQgdGhlIGF0aGxldGUgd2hvIGhhZCB0aGUgaGlnaGVzdCB0b3RhbCBwb2ludHMgYWNyb3NzIGJvdGggY29tcGV0aXRpb25zLgpUaGUgZGF0YSB3YXMgaW5pdGlhbGx5IGdyb3VwIGJ5IGBhdGhsZXRlX25hbWVgIGFzIG51bWVyb3VzIGF0aGxldGVzIGNvbXBldGVkIGFjcm9zcyBib3RoIGNvbXBldGl0aW9ucy4KVGhlIHRvdGFsIHBvaW50cyB3ZXJlIHRoZW4gc3VtbWVkIHRvZ2V0aGVyIGJhc2VkIG9uIHRoaXMgZ3JvdXBpbmcuCkEgYHNsaWNlX21heGAgd2FzIHRoZW4gdXNlZCB0byBmaW5kIHRoZSBhdGhsZXRlIHdpdGggdGhlIGhpZ2hlc3QgdG90YWwgcG9pbnRzLgpUaGUgZGF0YSB3YXMgdGhlIHVuZ3JvdXBlZCBzbyBmdXJ0aGVyIGFuYWx5c2lzIGlzIG5vdCBhZmZlY3RlZC4KCgojIDQuIFdoYXQgd2FzIHRoZSBzaG90LXB1dCBzY29yZXMgZm9yIHRoZSB0b3AgdGhyZWUgY29tcGV0aXRvcnMgaW4gZWFjaCBjb21wZXRpdGlvbj8KYGBge3J9CnRvcF90aHJlZV9jb21wZXRpdG9ycyA8LSBkZWNhdGhsb25fY2xlYW4gJT4lCiAgYXJyYW5nZShyYW5rKSAlPiUgCiAgaGVhZCg2KSAlPiUgCiAgc2VsZWN0KGF0aGxldGVfbmFtZSwgcmFuaywgcG9pbnRzLCBjb21wZXRpdGlvbiwgYHNob3RfcHV0XyhtKWApIAoKdG9wX3RocmVlX2NvbXBldGl0b3JzCmBgYApRdWVzdGlvbiA0IHdhcyBhc2tpbmcgZm9yIHRoZSBzaG90IHB1dCBzY29yZXMgZm9yIHRoZSB0b3AgdGhyZWUgY29tcGV0aXRvcnMgaW4gZWFjaCBjb21wZXRpdGlvbi4KVGhpcyB3YXMgaW50ZXJwcmV0ZWQgYXMgZmluZGluZyB0aGUgc2hvdCBwdXQgZGlzdGFuY2Ugb2YgdGhlIGF0aGxldGVzIHJhbmtlZCAxc3QsIDJuZCwgYW5kIDNyZCBpbiBib3RoIGNvbXBldGl0aW9ucy4KVGhlIGRhdGEgd2FzIGFycmFuZ2VkIGJ5IHJhbmssIHdpdGggcmFuayAxIG9mIGVpdGhlciBjb21wZXRpdGlvbiBiZWluZyByZXR1cm5lZCBmaXJzdC4KVGhlIHRvcCA2IHJvd3Mgd2VyZSB0aGVuIHNlbGVjdGVkIGFzIHRoaXMgd291bGQgZW5jYXBzdWxhdGUgMXN0LCAybmQsIGFuZCAzcmQgaW4gZWl0aGVyIGNvbXBldGl0aW9uLgpUaGUgYGF0aGxldGVfbmFtZWAsIGByYW5rYCwgYHBvaW50c2AsIGBjb21wZXRpdGlvbmAsIGFuZCBgc2hvdF9wdXRfKG0pYCB3ZXJlIHNlbGVjdGVkIGFuZCBvdXRwdXQuCgoKIyA1LiBXaGF0IHdhcyB0aGUgYXZlcmFnZSBwb2ludHMgZm9yIGNvbXBldGl0b3JzIHdobyByYW4gdGhlIDQwMG0gaW4gbGVzcyB0aGFuIDUwIHNlY29uZHMgdnMuIHRob3NlIHRoYW4gcmFuIDQwMG0gaW4gbW9yZSB0aGFuIDUwIHNlY29uZHM/CmBgYHtyfQpkZWNhdGhsb25fY2xlYW4gJT4lIAogIGZpbHRlcihgNDAwbV8ocylgIDwgNTApICU+JSAKICBzdW1tYXJpc2UoYXZnX3BvaW50c19sZXNzX3RoYW5fNTBzID0gbWVhbihwb2ludHMpKQoKZGVjYXRobG9uX2NsZWFuICU+JSAKICBmaWx0ZXIoYDQwMG1fKHMpYCA+IDUwKSAlPiUgCiAgc3VtbWFyaXNlKGF2Z19wb2ludHNfbW9yZV90aGFuXzUwcyA9IG1lYW4ocG9pbnRzKSkKYGBgClRoZSBnb2FsIGZvciB0aGlzIGNvZGUgd2FzIHRvIGZpbmQgdGhlIGF2ZXJhZ2UgcG9pbnRzIGZvciBjb21wZXRpdG9ycyB3aG8gcmFuIDQwMG0gaW4gbGVzcyB0aGFuIDUwIHNlY29uZHMgdnMuIHRob3NlIHRoYW4gcmFuIDQwMG0gaW4gbW9yZSB0aGFuIDUwIHNlY29uZHMuClRoZSBwcm9jZXNzIHdhcyB0byBmaWx0ZXIgdGhlIGRhdGEgYnkgYm90aCBzZXQgb2YgY29uZGl0aW9ucyBhbmQgdGhlbiBjYWxjdWxhdGUgdGhlIG1lYW4gcG9pbnRzIGJhc2VkIG9uIHRoZSBmb3JtZXIgY29uZGl0aW9uLgpUaGUgYXZlcmFnZSBwb2ludHMgZm9yIGNvbXBldGl0b3JzIHdobyByYW4gNDAwbSBpbiBsZXNzIHRoYW4gNTAgc2Vjb25kcyB3YXMgcmV0dXJuZWQgaW4gYSB0aWJibGUgZmlyc3RseS4KVGhlIGF2ZXJhZ2UgcG9pbnRzIGZvciBjb21wZXRpdG9ycyB3aG8gcmFuIDQwMG0gaW4gbW9yZSB0aGFuIDUwIHNlY29uZHMgd2FzIHJldHVybmVkIGluIGEgdGliYmxlIHNlY29uZGx5Lg==</div>
 
 
 

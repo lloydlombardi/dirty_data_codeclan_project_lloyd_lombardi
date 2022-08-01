@@ -13,10 +13,74 @@ library(here)
 decathlon_clean <- read_csv(here("clean_data/decathlon_clean.csv"))
 ```
 
-# 1. Who had the longest long jump seen in the data?
+#  1. Who had the longest long jump seen in the data?
 ```{r}
 decathlon_clean %>% 
-  arrange(desc(`long_jump_(m)`)) %>% 
+  arrange(desc(`long_jump_(m)`)) %>%
   head(1)
 ```
+In the above code chunk, the intention was to find the athlete with the longest jump.
+To achieve this, the data was arranged by the `long_jump_(m)` column.
+The data was then arranged in descending order to find the longest jump first.
+The top row was then returned using the head function.
 
+
+# 2. What was the average 100m time in each competition?
+```{r}
+decathlon_clean %>% 
+  group_by(competition) %>% 
+  summarise(avg_100m_time = round(mean(`100m_(s)`), 2)) %>% 
+  ungroup()
+```
+Question 2 asks to find the average 100m time in each competition.
+The first step was to group the athletes by competition, to allow for analysis.
+The summarise verb was then employed to find the mean times in either competition.
+The mean times were rounded to 2 decimal figures to keep to the formatting of the original dataset.
+The data was the ungrouped so further analysis is not affected.
+
+
+# 3. Who had the highest total points across both competitions?
+```{r}
+decathlon_clean %>% 
+  group_by(athlete_name) %>% 
+  summarise(total_points = sum(points)) %>% 
+  slice_max(total_points, n = 1) %>% 
+  ungroup()
+```
+The aim of this question was to find the athlete who had the highest total points across both competitions.
+The data was initially group by `athlete_name` as numerous athletes competed across both competitions.
+The total points were then summed together based on this grouping.
+A `slice_max` was then used to find the athlete with the highest total points.
+The data was the ungrouped so further analysis is not affected.
+
+
+# 4. What was the shot-put scores for the top three competitors in each competition?
+```{r}
+top_three_competitors <- decathlon_clean %>%
+  arrange(rank) %>% 
+  head(6) %>% 
+  select(athlete_name, rank, points, competition, `shot_put_(m)`) 
+
+top_three_competitors
+```
+Question 4 was asking for the shot put scores for the top three competitors in each competition.
+This was interpreted as finding the shot put distance of the athletes ranked 1st, 2nd, and 3rd in both competitions.
+The data was arranged by rank, with rank 1 of either competition being returned first.
+The top 6 rows were then selected as this would encapsulate 1st, 2nd, and 3rd in either competition.
+The `athlete_name`, `rank`, `points`, `competition`, and `shot_put_(m)` were selected and output.
+
+
+# 5. What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
+```{r}
+decathlon_clean %>% 
+  filter(`400m_(s)` < 50) %>% 
+  summarise(avg_points_less_than_50s = mean(points))
+
+decathlon_clean %>% 
+  filter(`400m_(s)` > 50) %>% 
+  summarise(avg_points_more_than_50s = mean(points))
+```
+The goal for this code was to find the average points for competitors who ran 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds.
+The process was to filter the data by both set of conditions and then calculate the mean points based on the former condition.
+The average points for competitors who ran 400m in less than 50 seconds was returned in a tibble firstly.
+The average points for competitors who ran 400m in more than 50 seconds was returned in a tibble secondly.
