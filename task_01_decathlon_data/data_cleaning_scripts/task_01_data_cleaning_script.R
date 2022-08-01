@@ -37,5 +37,18 @@ decathlon_clean <- decathlon_clean %>%
 decathlon_clean <- decathlon_clean %>% 
   rename_with(~str_replace(., "$", "_(m)"), .cols = starts_with(athletics_columns))
 
+# Create an assertive program to check values against current world records
+decathlon_clean %>% 
+  verify(`100m_(s)` > 9.85) %>% 
+  verify(`long_jump_(m)` < 8.95) %>% 
+  verify(`shot_put_(m)` < 23.37) %>% 
+  verify(`high_jump_(m)` < 2.45) %>% 
+  verify(`400m_(s)` > 43.03) %>% 
+  verify(`110m_hurdle_(s)` > 12.8) %>% 
+  verify(`discus_(m)` < 74.08) %>% 
+  verify(`pole_vault_(m)` < 6.21) %>% 
+  verify(`javeline_(m)` < 98.48) %>% 
+  verify(`1500m_(s)` > 230)
+
 # View dataset
 view(decathlon_clean)
