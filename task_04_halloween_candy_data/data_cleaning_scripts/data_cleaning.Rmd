@@ -85,7 +85,7 @@ candy_2015_ages <- candy_2015 %>%
 pivot longer
 ```{r}
 candy_2015_longer <- candy_2015_ages %>% 
-  pivot_longer(c(4:96, 115),
+  pivot_longer(cols = c(butterfinger:york_peppermint_patties, sea_salt_flavored_stuff_probably_chocolate_since_this_is_the_it_flavor_of_the_year, necco_wafers),
                names_to = "candies",
                values_to = "rating")
 
@@ -111,7 +111,7 @@ candy_2015_clean <- candy_2015_longer %>%
 change age column to numeric
 ```{r}
 candy_2015_clean <- candy_2015_clean %>% 
-  mutate(age = str_extract_all(age, "^[0-9][0-9]")) %>% 
+  mutate(age = str_extract(age, "^[0-9]+")) %>% 
   mutate(age = as.numeric(age))
 ```
 
@@ -119,11 +119,11 @@ candy_2015_clean <- candy_2015_clean %>%
 filter ages
 ```{r}
 candy_2015_clean <- candy_2015_clean %>% 
-  filter(age > 9,
+  filter(age > 0,
          age < 100)
 ```
 
-add countries
+add countries and gender column
 ```{r}
 candy_2015_clean <- candy_2015_clean %>% 
   mutate(country = "",
@@ -181,7 +181,7 @@ candy_2016_ages <- candy_2016 %>%
 
 ```{r}
 candy_2016_longer <- candy_2016_ages %>% 
-  pivot_longer(c(7:106),
+  pivot_longer(cols = c(x100_grand_bar:york_peppermint_patties),
                names_to = "candies",
                values_to = "rating")
 
@@ -211,13 +211,13 @@ candy_2016_clean <- candy_2016_clean %>%
 
 ```{r}
 candy_2016_clean <- candy_2016_clean %>% 
-  mutate(age = str_extract_all(age, "^[0-9][0-9]")) %>% 
+  mutate(age = str_extract(age, "^[0-9]+")) %>% 
   mutate(age = as.numeric(age))
 ```
 
 ```{r}
 candy_2016_clean <- candy_2016_clean %>% 
-  filter(age > 9,
+  filter(age > 0,
          age < 100)
 ```
 
@@ -286,7 +286,7 @@ candy_2017_ages <- candy_2017 %>%
 
 ```{r}
 candy_2017_longer <- candy_2017_ages %>% 
-  pivot_longer(c(7:109),
+  pivot_longer(cols = c(x100_grand_bar:york_peppermint_patties),
                names_to = "candies",
                values_to = "rating")
 
@@ -313,13 +313,13 @@ candy_2017_clean <- candy_2017_clean %>%
 
 ```{r}
 candy_2017_clean <- candy_2017_clean %>% 
-  mutate(age = str_extract_all(age, "^[0-9][0-9]")) %>% 
+  mutate(age = str_extract(age, "^[0-9]+")) %>% 
   mutate(age = as.numeric(age))
 ```
 
 ```{r}
 candy_2017_clean <- candy_2017_clean %>% 
-  filter(age > 9,
+  filter(age > 0,
          age < 100)
 ```
 
@@ -377,7 +377,6 @@ candy <- bind_rows(candy_2015_clean, candy_2016_clean, candy_2017_clean)
 candy
 ```
 
-
 ```{r}
 candy <- candy %>% 
   mutate(country = str_to_title(country))
@@ -400,9 +399,11 @@ candy_country_sorted <- candy %>%
          country = str_replace_all(country, "Murica", "USA"),
          country = str_replace_all(country, "^U{1}S+A*[:punct:]*", "USA"),
          country = str_replace_all(country, "(?i)America", "USA"),
-         country = str_replace_all(country, "([a-z]*[:punct:]*)* (?i)usa ([a-z]*[:punct:]*)*", "USA"),
+         country = str_replace_all(country, "([a-z]*[:punct:]*)* *(?i)usa *([a-z]*[:punct:]*)*", "USA"),
          country = str_replace_all(country, "USAUSA", "USA"),
          country = str_replace_all(country, "The Best One - Usa", "USA"),
+         country = str_replace_all(country, "The Best One USA", "USA"),
+         country = str_replace_all(country, "United States OUSA", "USA"),
          country = str_replace_all(country, "USA Usa! Usa!", "USA"),
          country = str_replace_all(country, "The Yoo Ess Of Aaayyyyyy", "USA"),
          country = str_replace_all(country, "God's Country", "USA"),
@@ -430,6 +431,7 @@ candy_country_sorted <- candy %>%
          country = str_replace_all(country, "New York", "USA"),
          country = str_replace_all(country, "Trumpistan", "USA"),
          country = str_replace_all(country, "California", "USA"),
+         country = str_replace_all(country, "USA OUSA", "USA"),
          country = str_replace_all(country, "I Pretend To Be From Canada, But I Am Really From The United States.", "USA"),
          country = str_replace_all(country, "I Pretend To Be From Canada, But I Am Really From USA.", "USA"),
          country = str_replace_all(country, "New Jersey", "USA"),
@@ -438,6 +440,9 @@ candy_country_sorted <- candy %>%
          country = str_replace_all(country, "N. USA", "USA"),
          country = str_replace_all(country, "U S A", "USA"),
          country = str_replace_all(country, "USA A", "USA"),
+         country = str_replace_all(country, "USA To Tell Anymore..", "USA"),
+         country = str_replace_all(country, "'USA", "USA"),
+         country = str_replace_all(country, "NUSA", "USA"),
          country = str_replace_all(country, "Uk", "UK"),
          country = str_replace_all(country, "United Kingdom", "UK"),
          country = str_replace_all(country, "United Kindom", "UK"),
@@ -446,7 +451,25 @@ candy_country_sorted <- candy %>%
          country = str_replace_all(country, "Endland", "UK"),
          country = str_replace_all(country, "^Can$", "Canada"),
          country = str_replace_all(country, "Canae", "Canada"),
-         country = str_replace_all(country, "Canada`", "Canada"))
+         country = str_replace_all(country, "Canada`", "Canada"),
+         country = str_replace_all(country, "España", "Spain"),
+         country = str_replace_all(country, "The Netherlands", "Netherlands"))
+```
+
+other country outliers
+```{r}
+country_outliers = c("A tropical island south of the equator", "Ud", "Atlantis",
+                 "Canae", "cascadia ", "Cascadia", "Denial", "Earth", "1", 
+                 "god's country", "I Don't Know Anymore", "insanity lately", 
+                 "There Isn't One For Old Men", "Soviet Canuckistan", "Narnia", "Neverland",
+                 "one of the best ones", "See above", "Somewhere", "subscribe to dm4uz3 on youtube",
+                 "The Republic Of Cascadia", "this one", "Eua", "Europe")
+```
+
+
+```{r}
+candy_country_sorted <- candy_country_sorted %>% 
+  mutate(country = if_else(country %in% country_outliers, NA_character_, country))
 ```
 
 
