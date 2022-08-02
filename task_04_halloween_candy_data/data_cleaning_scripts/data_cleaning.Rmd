@@ -443,7 +443,10 @@ candy_country_sorted <- candy %>%
          country = str_replace_all(country, "United Kindom", "UK"),
          country = str_replace_all(country, "England", "UK"),
          country = str_replace_all(country, "Scotland", "UK"),
-         country = str_replace_all(country, "Endland", "UK"))
+         country = str_replace_all(country, "Endland", "UK"),
+         country = str_replace_all(country, "^Can$", "Canada"),
+         country = str_replace_all(country, "Canae", "Canada"),
+         country = str_replace_all(country, "Canada`", "Canada"))
 ```
 
 
