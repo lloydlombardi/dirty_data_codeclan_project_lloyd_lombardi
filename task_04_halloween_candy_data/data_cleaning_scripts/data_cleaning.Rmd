@@ -9,12 +9,13 @@ library(janitor)
 library(readxl)
 library(assertr)
 library(stringr)
+library(here)
 ```
 read in tables
 ```{r}
-candy_2015 <- read_excel("raw_data/boing-boing-candy-2015.xlsx")
-candy_2016 <- read_excel("raw_data/boing-boing-candy-2016.xlsx")
-candy_2017 <- read_excel("raw_data/boing-boing-candy-2017.xlsx")
+candy_2015 <- read_excel(here("raw_data/boing-boing-candy-2015.xlsx"))
+candy_2016 <- read_excel(here("raw_data/boing-boing-candy-2016.xlsx"))
+candy_2017 <- read_excel(here("raw_data/boing-boing-candy-2017.xlsx"))
 ```
 
 clean names
@@ -35,6 +36,13 @@ candy_2016 %>%
 candy_2017 %>% 
   names()
 ```
+
+
+```{r}
+candy_2015 %>% 
+  distinct(how_old_are_you)
+```
+
 
 --------------------------------------------------------------------------------
 # 2015
@@ -69,6 +77,7 @@ candy_2015_clean <- candy_2015_longer %>%
 change age column to numeric
 ```{r}
 candy_2015_clean <- candy_2015_clean %>% 
+  mutate(age = str_extract_all(age, "^[0-9][0-9]")) %>% 
   mutate(age = as.numeric(age))
 ```
 
@@ -105,6 +114,12 @@ candy_2015_clean %>%
 candy_2015_clean %>% 
   distinct(trick_or_treating)
 ```
+
+```{r}
+candy_2015_clean %>% 
+  distinct(age)
+```
+
 
 
 --------------------------------------------------------------------------------
