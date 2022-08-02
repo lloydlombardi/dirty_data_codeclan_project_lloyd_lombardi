@@ -132,12 +132,12 @@ candy_2015_clean <- candy_2015_clean %>%
          gender = na_if(gender, ""))
 ```
 
-
+Look at outlying candies
 ```{r}
-candies_2015 <- candy_2015_clean %>%
-  arrange(candies) %>% 
-  distinct(candies) %>% 
-  pull()
+# candies_2015 <- candy_2015_clean %>%
+#   arrange(candies) %>% 
+#   distinct(candies) %>% 
+#   pull()
 ```
 
 ```{r}
@@ -161,8 +161,26 @@ candy_2015_clean %>%
 
 # 2016
 
+find the outliers for age
 ```{r}
-candy_2016_longer <- candy_2016 %>% 
+# candy_2016 %>%
+#   arrange(how_old_are_you) %>%
+#   distinct(how_old_are_you) %>%
+#   pull()
+```
+
+
+```{r}
+candy_2016_ages <- candy_2016 %>% 
+  mutate(how_old_are_you = str_remove_all(how_old_are_you, "[0-9][0-9][0-9]"),
+         how_old_are_you = str_replace(how_old_are_you, "49 11/12ths", "49"),
+         how_old_are_you = str_replace(how_old_are_you, "Fifty.  Nine.  Ish.", "59"))
+```
+
+
+
+```{r}
+candy_2016_longer <- candy_2016_ages %>% 
   pivot_longer(c(7:106),
                names_to = "candies",
                values_to = "rating")
@@ -199,7 +217,7 @@ candy_2016_clean <- candy_2016_clean %>%
 
 ```{r}
 candy_2016_clean <- candy_2016_clean %>% 
-  filter(age > 4,
+  filter(age > 9,
          age < 100)
 ```
 
@@ -209,13 +227,12 @@ candy_2016_clean <- candy_2016_clean %>%
 ```
 
 
-
-
+Find outlying candies
 ```{r}
-candies_2016 <- candy_2016_clean %>% 
-  arrange(candies) %>% 
-  distinct(candies) %>% 
-  pull()
+# candies_2016 <- candy_2016_clean %>% 
+#   arrange(candies) %>% 
+#   distinct(candies) %>% 
+#   pull()
 ```
 
 ```{r}
@@ -233,13 +250,6 @@ candy_2016_clean %>%
   distinct(trick_or_treating)
 ```
 
-```{r}
-candy_2016_clean %>% 
-  distinct(country)
-```
-
-
-
 
 --------------------------------------------------------------------------------
 # 2017
@@ -255,8 +265,27 @@ candy_2017 <- candy_2017 %>%
   rename(anonymous_brown_globs_that_come_in_black_and_orange_wrappers = anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes)
 ```
 
+
+find the outliers for age
 ```{r}
-candy_2017_longer <- candy_2017 %>% 
+candy_2017 %>%
+  arrange(age) %>%
+  distinct(age) %>%
+  pull()
+```
+
+
+```{r}
+candy_2017_ages <- candy_2017 %>% 
+  mutate(age = str_remove_all(age, "[0-9][0-9][0-9]"),
+         age = str_replace(age, "45-55", "50"),
+         age = str_replace(age, "24-50", "37"),
+         age = str_replace(age, "sixty-nine", "69"))
+```
+
+
+```{r}
+candy_2017_longer <- candy_2017_ages %>% 
   pivot_longer(c(7:109),
                names_to = "candies",
                values_to = "rating")
@@ -272,6 +301,7 @@ candy_2017_clean <- candy_2017_longer %>%
   rename(trick_or_treating = going_out)
 ```
 
+
 ```{r}
 candy_2017_clean <- candy_2017_clean %>% 
   relocate(age, .after = year)
@@ -279,6 +309,20 @@ candy_2017_clean <- candy_2017_clean %>%
 candy_2017_clean <- candy_2017_clean %>% 
   relocate(gender, .after = country)
 ```
+
+
+```{r}
+candy_2017_clean <- candy_2017_clean %>% 
+  mutate(age = str_extract_all(age, "^[0-9][0-9]")) %>% 
+  mutate(age = as.numeric(age))
+```
+
+```{r}
+candy_2017_clean <- candy_2017_clean %>% 
+  filter(age > 9,
+         age < 100)
+```
+
 
 ```{r}
 candies_2017 <- candy_2017_clean %>%
@@ -322,5 +366,14 @@ candies_2017[!(candies_2017 %in% candies_2015)]
 ```{r}
 # Candies in 2017 that are not in 2016
 candies_2017[!(candies_2017 %in% candies_2016)]
+```
+
+--------------------------------------------------------------------------------
+# Join tables by binding rows
+
+```{r}
+candy <- bind_rows(candy_2015_clean, candy_2016_clean, candy_2017_clean)
+
+candy
 ```
 
