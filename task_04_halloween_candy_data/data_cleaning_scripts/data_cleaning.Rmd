@@ -437,7 +437,13 @@ candy_country_sorted <- candy %>%
          country = str_replace_all(country, "Alaska", "USA"),
          country = str_replace_all(country, "N. USA", "USA"),
          country = str_replace_all(country, "U S A", "USA"),
-         country = str_replace_all(country, "USA A", "USA"))
+         country = str_replace_all(country, "USA A", "USA"),
+         country = str_replace_all(country, "Uk", "UK"),
+         country = str_replace_all(country, "United Kingdom", "UK"),
+         country = str_replace_all(country, "United Kindom", "UK"),
+         country = str_replace_all(country, "England", "UK"),
+         country = str_replace_all(country, "Scotland", "UK"),
+         country = str_replace_all(country, "Endland", "UK"))
 ```
 
 
