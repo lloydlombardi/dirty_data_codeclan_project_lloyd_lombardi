@@ -377,3 +377,74 @@ candy <- bind_rows(candy_2015_clean, candy_2016_clean, candy_2017_clean)
 candy
 ```
 
+
+```{r}
+candy <- candy %>% 
+  mutate(country = str_to_title(country))
+```
+
+--------------------------------------------------------------------------------
+# Sort countries
+
+```{r}
+candy %>% 
+  distinct(country)
+```
+
+```{r}
+candy_country_sorted <- candy %>% 
+  mutate(country = str_replace_all(country, "^U{1}s+[a-z]*", "USA"),
+         country = str_replace_all(country, "^U?[a-z]* S?[a-z]* O?[a-z]* A?[a-z]*", "USA"),
+         country = str_replace_all(country, "^U{1}[:punct:](s[:punct:])*(a[:punct:])*", "USA"),
+         country = str_replace_all(country, "^U[a-z]+ S[a-z]+", "USA"),
+         country = str_replace_all(country, "Murica", "USA"),
+         country = str_replace_all(country, "^U{1}S+A*[:punct:]*", "USA"),
+         country = str_replace_all(country, "(?i)America", "USA"),
+         country = str_replace_all(country, "([a-z]*[:punct:]*)* (?i)usa ([a-z]*[:punct:]*)*", "USA"),
+         country = str_replace_all(country, "USAUSA", "USA"),
+         country = str_replace_all(country, "The Best One - Usa", "USA"),
+         country = str_replace_all(country, "USA Usa! Usa!", "USA"),
+         country = str_replace_all(country, "The Yoo Ess Of Aaayyyyyy", "USA"),
+         country = str_replace_all(country, "God's Country", "USA"),
+         country = str_replace_all(country, "God's Country", "USA"),
+         country = str_replace_all(country, "(USA Usa)+!*", "USA"),
+         country = str_replace_all(country, "Merica", "USA"),
+         country = str_replace_all(country, "United States Of USA", "USA"),
+         country = str_replace_all(country, "us+a+", "USA"),
+         country = str_replace_all(country, "united states", "USA"),
+         country = str_replace_all(country, "^us$", "USA"),
+         country = str_replace_all(country, "United staes", "USA"),
+         country = str_replace_all(country, "United states", "USA"),
+         country = str_replace_all(country, "u.s.a.", "USA"),
+         country = str_replace_all(country, "USAUSA", "USA"),
+         country = str_replace_all(country, "USAS.A.", "USA"),
+         country = str_replace_all(country, "unhinged states", "USA"),
+         country = str_replace_all(country, "USA Of A", "USA"),
+         country = str_replace_all(country, "The United States", "USA"),
+         country = str_replace_all(country, "North Carolina", "USA"),
+         country = str_replace_all(country, "U S", "USA"),
+         country = str_replace_all(country, "USAk.", "USA"),
+         country = str_replace_all(country, "The USA", "USA"),
+         country = str_replace_all(country, "USA Hard To Tell Anymore..", "USA"),
+         country = str_replace_all(country, "Pittsburgh", "USA"),
+         country = str_replace_all(country, "New York", "USA"),
+         country = str_replace_all(country, "Trumpistan", "USA"),
+         country = str_replace_all(country, "California", "USA"),
+         country = str_replace_all(country, "I Pretend To Be From Canada, But I Am Really From The United States.", "USA"),
+         country = str_replace_all(country, "I Pretend To Be From Canada, But I Am Really From USA.", "USA"),
+         country = str_replace_all(country, "New Jersey", "USA"),
+         country = str_replace_all(country, "Murrika", "USA"),
+         country = str_replace_all(country, "Alaska", "USA"),
+         country = str_replace_all(country, "N. USA", "USA"),
+         country = str_replace_all(country, "U S A", "USA"),
+         country = str_replace_all(country, "USA A", "USA"))
+```
+
+
+
+```{r}
+candy_country_sorted %>% 
+  distinct(country)
+```
+
+
