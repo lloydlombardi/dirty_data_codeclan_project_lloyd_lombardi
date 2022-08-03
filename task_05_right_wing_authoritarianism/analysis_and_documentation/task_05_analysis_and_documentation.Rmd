@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r}
+rwa <- read_csv("clean_data/rwa.csv")
+```
+
+
+
+
+# 1. What’s the average RWA score for each gender?
+
+```{r}
+rwa %>% 
+  group_by(gender) %>% 
+  summarise(avg_score_gender = mean(rwa_score)) %>% 
+  ungroup()
+```
+
+# 2. What’s the average RWA score for left handed people vs. right handed people.
+
+```{r}
+rwa %>% 
+  filter(hand == c("Right", "Left")) %>% 
+  group_by(hand) %>% 
+  summarise(avg_score_hand = mean(rwa_score)) %>% 
+  ungroup()
+```
+
+# 3. What’s the average family size for each type of childhood?
+
+```{r}
+rwa %>% 
+  group_by(urban) %>% 
+  summarise(avg_fam_size = mean(familysize)) %>% 
+  ungroup()
+```
+
+# 4. What’s the average family size for each type of childhood?
+```{r}
+rwa %>% 
+  group_by(education) %>% 
+  summarise(avg_time = mean(total_time))
+```
+
