@@ -1,0 +1,73 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(stringr)
+library(janitor)
+library(here)
+```
+
+```{r}
+seabird_data <- read_csv(here("clean_data/seabird_data.csv"))
+```
+
+# 1. Which bird had the most individual sightings?
+
+```{r}
+seabird_data %>% 
+  filter(count == 1) %>% 
+  group_by(common_name, scientific_name, abbreviation) %>% 
+  summarise(individual_sightings = n()) %>% 
+  arrange(desc(individual_sightings)) %>% 
+  ungroup()
+```
+
+
+# 2. Which bird had the highest total count?
+
+```{r}
+seabird_data %>% 
+  group_by(common_name, scientific_name, abbreviation) %>% 
+  summarise(total_sightings = n()) %>% 
+  arrange(desc(total_sightings)) %>% 
+  ungroup()
+```
+
+
+# 3. Which bird had the highest total count above a latitude of -30?
+
+```{r}
+seabird_data %>% 
+  filter(lat > -30) %>% 
+  group_by(common_name, scientific_name, abbreviation) %>% 
+  summarise(sightings_past_lat = n()) %>% 
+  arrange(desc(sightings_past_lat)) %>% 
+  ungroup()
+```
+
+
+# 4. How many different types of birds were only ever seen in groups of 1?
+
+```{r}
+seabird_data %>% 
+  filter(count == 1) %>% 
+  group_by(common_name) %>% 
+  count(common_name) %>% 
+  ungroup()
+```
+
+
+# 5. How many penguins were seen? (Hint: there are many types of penguin)
+
+```{r}
+seabird_data %>% 
+  mutate(penguin = str_detect(common_name, "penguin")) %>% 
+  filter(penguin == TRUE) %>%
+  filter(!is.na(count)) %>% 
+  summarise(count_penguins = sum(count))
+```
+
