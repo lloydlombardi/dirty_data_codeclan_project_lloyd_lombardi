@@ -10,6 +10,7 @@ candy_2015 <- read_excel("raw_data/boing-boing-candy-2015.xlsx")
 candy_2016 <- read_excel("raw_data/boing-boing-candy-2016.xlsx")
 candy_2017 <- read_excel("raw_data/boing-boing-candy-2017.xlsx")
 
+
 # Run `clean_names` function on datasets
 candy_2015 <- clean_names(candy_2015)
 candy_2016 <- clean_names(candy_2016)
@@ -160,7 +161,7 @@ candy_2017 <- candy_2017 %>%
   rename_with(~str_replace(., "^", "x"), .cols = starts_with("100"))
 # Add an "x" onto one candy name to keep it consistent
 candy_2017 <- candy_2017 %>% 
-  rename(anonymous_brown_globs_that_come_in_black_and_orange_wrappers = anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes)
+  rename(mary_janes = anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes)
 # Rename a candy to keep it consistent
 
 
