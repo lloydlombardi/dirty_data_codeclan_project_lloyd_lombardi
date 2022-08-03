@@ -264,6 +264,8 @@ candy_country_sorted <- candy %>%
     TRUE ~ country
   ))
 # Sort all variations of USA, UK, Canada, Spain and Netherlands
+# Use a case_when function to detect all the combinations of countries
+# Set a default value for country where no match is found
 
 
 # Create a vector of country outliers 
