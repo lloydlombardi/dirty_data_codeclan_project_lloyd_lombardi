@@ -5,6 +5,7 @@ output: html_notebook
 ```{r}
 library(tidyverse)
 library(here)
+library(stringr)
 ```
 
 
@@ -69,6 +70,133 @@ candy %>%
 candy %>% 
   filter(candies == "starburst") %>% 
   filter(rating == "DESPAIR") %>% 
-  summarise(despair_rating_count = n())
+  summarise(despair_rating_count_starburst = n())
+```
+# For the next three questions, count despair as -1, joy as +1, and meh as 0.
+```{r}
+candy_count <- candy %>% 
+  mutate(rating = str_replace_all(rating, "JOY", "1"),
+         rating = str_replace_all(rating, "DESPAIR", "-1"),
+         rating = str_replace_all(rating, "MEH", "0"))
+
+candy_count <- candy_count %>% 
+  mutate(rating = as.numeric(rating))
+```
+
+
+# 6. What was the most popular candy bar by this rating system for each gender in the dataset ?
+```{r}
+candy_count %>%
+  filter(!is.na(rating)) %>%
+  filter(gender == "Male") %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_by_male = sum(rating)) %>% 
+  arrange(desc(pop_candy_by_male)) %>% 
+  head(1) %>% 
+  ungroup()
+
+candy_count %>%
+  filter(!is.na(rating)) %>%
+  filter(gender == "Female") %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_by_female = sum(rating)) %>% 
+  arrange(desc(pop_candy_by_female)) %>% 
+  head(1) %>% 
+  ungroup()
+
+candy_count %>%
+  filter(!is.na(rating)) %>%
+  filter(gender == "I'd rather not say") %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_by_other = sum(rating)) %>% 
+  arrange(desc(pop_candy_by_other)) %>% 
+  head(1) %>% 
+  ungroup()
+
+candy_count %>%
+  filter(!is.na(rating)) %>%
+  filter(is.na(gender)) %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_by_NA = sum(rating)) %>% 
+  arrange(desc(pop_candy_by_NA)) %>% 
+  head(1) %>% 
+  ungroup()
+```
+
+
+# 7. What was the most popular candy bar in each year?
+```{r}
+candy_count %>% 
+  filter(!is.na(rating)) %>% 
+  filter(year == 2015) %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_2015 = sum(rating)) %>% 
+  arrange(desc(pop_candy_2015)) %>% 
+  head(1) %>% 
+  ungroup()
+
+
+candy_count %>% 
+  filter(!is.na(rating)) %>% 
+  filter(year == 2016) %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_2016 = sum(rating)) %>% 
+  arrange(desc(pop_candy_2016)) %>% 
+  head(1) %>% 
+  ungroup()
+
+
+candy_count %>% 
+  filter(!is.na(rating)) %>% 
+  filter(year == 2017) %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_2017 = sum(rating)) %>% 
+  arrange(desc(pop_candy_2017)) %>% 
+  head(1) %>% 
+  ungroup()
+```
+
+
+# 8. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
+```{r}
+candy_count %>% 
+  filter(!is.na(rating)) %>% 
+  filter(country == "USA") %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_USA = sum(rating)) %>% 
+  arrange(desc(pop_candy_USA)) %>% 
+  head(1) %>% 
+  ungroup()
+
+
+candy_count %>% 
+  filter(!is.na(rating)) %>% 
+  filter(country == "Canada") %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_Canada = sum(rating)) %>% 
+  arrange(desc(pop_candy_Canada)) %>% 
+  head(1) %>% 
+  ungroup()
+
+
+candy_count %>% 
+  filter(!is.na(rating)) %>% 
+  filter(country == "UK") %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_UK = sum(rating)) %>% 
+  arrange(desc(pop_candy_UK)) %>% 
+  head(1) %>% 
+  ungroup()
+
+
+candy_count %>% 
+  filter(!is.na(rating)) %>%
+  filter(!is.na(country)) %>% 
+  filter(!(country %in% c("USA", "UK", "Canada"))) %>% 
+  group_by(candies) %>% 
+  summarise(pop_candy_others = sum(rating)) %>% 
+  arrange(desc(pop_candy_others)) %>% 
+  head(1) %>% 
+  ungroup()
 ```
 
