@@ -157,9 +157,11 @@ candy_2016_clean <- candy_2016_clean %>%
 candy_2017 <- candy_2017 %>% 
   rename_with(~ gsub("^q[0-9]_", "", .x))
 # Remove the "q1" style prefix to column names
+
 candy_2017 <- candy_2017 %>% 
   rename_with(~str_replace(., "^", "x"), .cols = starts_with("100"))
 # Add an "x" onto one candy name to keep it consistent
+
 candy_2017 <- candy_2017 %>% 
   rename(mary_janes = anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes)
 # Rename a candy to keep it consistent
@@ -238,70 +240,29 @@ candy <- candy %>%
 # This will help merge some characters together
 
 
+#Create some variables to detect USA and UK countries
+states <- c("North Carolina", "Pittsburgh", "New York", "California", "New Jersey", "Alaska")
+uk <- c("England", "Scotland", "Endland")
+# These were found by using distinct(countries)
+
+
 # Sort country column
 candy_country_sorted <- candy %>% 
-  mutate(country = str_replace_all(country, "^U{1}s+[a-z]*", "USA"),
-         country = str_replace_all(country, "^U?[a-z]* S?[a-z]* O?[a-z]* A?[a-z]*", "USA"),
-         country = str_replace_all(country, "^U{1}[:punct:](s[:punct:])*(a[:punct:])*", "USA"),
-         country = str_replace_all(country, "^U[a-z]+ S[a-z]+", "USA"),
-         country = str_replace_all(country, "Murica", "USA"),
-         country = str_replace_all(country, "^U{1}S+A*[:punct:]*", "USA"),
-         country = str_replace_all(country, "(?i)America", "USA"),
-         country = str_replace_all(country, "([a-z]*[:punct:]*)* *(?i)usa *([a-z]*[:punct:]*)*", "USA"),
-         country = str_replace_all(country, "USAUSA", "USA"),
-         country = str_replace_all(country, "The Best One - Usa", "USA"),
-         country = str_replace_all(country, "The Best One USA", "USA"),
-         country = str_replace_all(country, "United States OUSA", "USA"),
-         country = str_replace_all(country, "USA Usa! Usa!", "USA"),
-         country = str_replace_all(country, "The Yoo Ess Of Aaayyyyyy", "USA"),
-         country = str_replace_all(country, "God's Country", "USA"),
-         country = str_replace_all(country, "God's Country", "USA"),
-         country = str_replace_all(country, "(USA Usa)+!*", "USA"),
-         country = str_replace_all(country, "Merica", "USA"),
-         country = str_replace_all(country, "United States Of USA", "USA"),
-         country = str_replace_all(country, "us+a+", "USA"),
-         country = str_replace_all(country, "united states", "USA"),
-         country = str_replace_all(country, "^us$", "USA"),
-         country = str_replace_all(country, "United staes", "USA"),
-         country = str_replace_all(country, "United states", "USA"),
-         country = str_replace_all(country, "u.s.a.", "USA"),
-         country = str_replace_all(country, "USAUSA", "USA"),
-         country = str_replace_all(country, "USAS.A.", "USA"),
-         country = str_replace_all(country, "unhinged states", "USA"),
-         country = str_replace_all(country, "USA Of A", "USA"),
-         country = str_replace_all(country, "The United States", "USA"),
-         country = str_replace_all(country, "North Carolina", "USA"),
-         country = str_replace_all(country, "U S", "USA"),
-         country = str_replace_all(country, "USAk.", "USA"),
-         country = str_replace_all(country, "The USA", "USA"),
-         country = str_replace_all(country, "USA Hard To Tell Anymore..", "USA"),
-         country = str_replace_all(country, "Pittsburgh", "USA"),
-         country = str_replace_all(country, "New York", "USA"),
-         country = str_replace_all(country, "Trumpistan", "USA"),
-         country = str_replace_all(country, "California", "USA"),
-         country = str_replace_all(country, "USA OUSA", "USA"),
-         country = str_replace_all(country, "I Pretend To Be From Canada, But I Am Really From The United States.", "USA"),
-         country = str_replace_all(country, "I Pretend To Be From Canada, But I Am Really From USA.", "USA"),
-         country = str_replace_all(country, "New Jersey", "USA"),
-         country = str_replace_all(country, "Murrika", "USA"),
-         country = str_replace_all(country, "Alaska", "USA"),
-         country = str_replace_all(country, "N. USA", "USA"),
-         country = str_replace_all(country, "U S A", "USA"),
-         country = str_replace_all(country, "USA A", "USA"),
-         country = str_replace_all(country, "USA To Tell Anymore..", "USA"),
-         country = str_replace_all(country, "'USA", "USA"),
-         country = str_replace_all(country, "NUSA", "USA"),
-         country = str_replace_all(country, "Uk", "UK"),
-         country = str_replace_all(country, "United Kingdom", "UK"),
-         country = str_replace_all(country, "United Kindom", "UK"),
-         country = str_replace_all(country, "England", "UK"),
-         country = str_replace_all(country, "Scotland", "UK"),
-         country = str_replace_all(country, "Endland", "UK"),
-         country = str_replace_all(country, "^Can$", "Canada"),
-         country = str_replace_all(country, "Canae", "Canada"),
-         country = str_replace_all(country, "Canada`", "Canada"),
-         country = str_replace_all(country, "España", "Spain"),
-         country = str_replace_all(country, "The Netherlands", "Netherlands"))
+  mutate(country = case_when(
+    str_detect(country,"((?i)[a-z]* *[:punct:])*((?i)^u+ *[:punct:]*(?i)[ns]+ *[:punct:]*(?i)s* *[:punct:]*(?i)a* *[:punct:]*)+((?i)[a-z]* *[:punct:])*") ~ "USA",
+    str_detect(country, "(?i)a+mer") ~ "USA",
+    str_detect(country, "(?i)t+[a-z]* *(?i)u+[a-z]* *(?i)s+[a-z]* *(?i)o*[a-z]* *(?i)a*[a-z]*") ~ "USA",
+    str_detect(country, " +U+[sa]*") ~ "USA",
+    str_detect(country, "T+[a-z]* Y+[a-z]* E+[a-z]* O+[a-z]* A+[a-z]*") ~ "USA",
+    str_detect(country, "[:punct:]*M+[ue]+[r]+") ~ "USA",
+    country %in% states ~ "USA",
+    str_detect(country, "^(?i)u+[:punct:]*(?i)k+") ~ "UK",
+    country %in% uk ~ "UK",
+    str_detect(country, "(^(?i)can)+[a-z]*[:punct:]*") ~ "Canada",
+    str_detect(country, "ñ+") ~ "Spain",
+    str_detect(country, "The N+") ~ "Netherlands",
+    TRUE ~ country
+  ))
 # Sort all variations of USA, UK, Canada, Spain and Netherlands
 
 
@@ -321,6 +282,9 @@ candy_country_sorted <- candy_country_sorted %>%
 
 # Rename dataset
 candy_clean <- candy_country_sorted
+
+candy_clean %>% 
+  distinct(country)
 ################################################################################
                                 # Write csv
 ################################################################################
