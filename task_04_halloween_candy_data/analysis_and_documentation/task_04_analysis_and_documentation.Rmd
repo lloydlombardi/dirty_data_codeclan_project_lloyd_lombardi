@@ -1,0 +1,74 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(here)
+```
+
+
+
+```{r}
+candy <- read_csv(here("clean_data/candy_clean.csv"))
+```
+
+
+# 1. What is the total number of candy ratings given across the three years. (Number of candy ratings, not the number of raters. Don’t count missing values)
+```{r}
+candy %>%
+  filter(!is.na(rating)) %>% 
+  summarise(count_rating = n())
+```
+
+#2. What was the average age of people who are going out trick or treating?
+```{r}
+candy %>% 
+  filter(trick_or_treating == "Yes") %>% 
+  summarise(avg_age_tt = floor(mean(age)))
+```
+
+# 3. What was the average age of people who are not going trick or treating?
+```{r}
+candy %>% 
+  filter(trick_or_treating == "No") %>% 
+  summarise(avg_age_no_tt = floor(mean(age)))
+```
+
+
+# 4. For each of joy, despair and meh, which candy bar received the most of these ratings?
+```{r}
+candy %>% 
+  filter(rating == "JOY") %>% 
+  group_by(candies, rating) %>% 
+  summarise(joy_rating_per_candies = n()) %>% 
+  arrange(desc(joy_rating_per_candies)) %>% 
+  head(1) %>% 
+  ungroup()
+
+candy %>% 
+  filter(rating == "DESPAIR") %>% 
+  group_by(candies, rating) %>% 
+  summarise(joy_rating_per_candies = n()) %>% 
+  arrange(desc(joy_rating_per_candies)) %>% 
+  head(1) %>% 
+  ungroup()
+
+candy %>% 
+  filter(rating == "MEH") %>% 
+  group_by(candies, rating) %>% 
+  summarise(joy_rating_per_candies = n()) %>% 
+  arrange(desc(joy_rating_per_candies)) %>% 
+  head(1) %>% 
+  ungroup()
+```
+
+
+# 5. How many people rated Starburst as despair?
+```{r}
+candy %>% 
+  filter(candies == "starburst") %>% 
+  filter(rating == "DESPAIR") %>% 
+  summarise(despair_rating_count = n())
+```
+
