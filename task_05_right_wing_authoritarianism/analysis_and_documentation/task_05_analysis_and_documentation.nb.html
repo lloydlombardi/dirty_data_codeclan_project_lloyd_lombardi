@@ -1773,33 +1773,39 @@ pre code {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
 <pre class="r"><code>library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4xIOKUgOKUgFxu4pyUIGdncGxvdDIgMy4zLjYgICAgIOKclCBwdXJyciAgIDAuMy40XG7inJQgdGliYmxlICAzLjEuNyAgICAg4pyUIGRwbHlyICAgMS4wLjlcbuKclCB0aWR5ciAgIDEuMi4wICAgICDinJQgc3RyaW5nciAxLjQuMFxu4pyUIHJlYWRyICAgMi4xLjIgICAgIOKclCBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG7inJYgZHBseXI6OmZpbHRlcigpIG1hc2tzIHN0YXRzOjpmaWx0ZXIoKVxu4pyWIGRwbHlyOjpsYWcoKSAgICBtYXNrcyBzdGF0czo6bGFnKClcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4xIOKUgOKUgFxu4pyUIGdncGxvdDIgMy4zLjYgICAgIOKclCBwdXJyciAgIDAuMy40XG7inJQgdGliYmxlICAzLjEuNyAgICAg4pyUIGRwbHlyICAgMS4wLjlcbuKclCB0aWR5ciAgIDEuMi4wICAgICDinJQgc3RyaW5nciAxLjQuMFxu4pyUIHJlYWRyICAgMi4xLjIgICAgIOKclCBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG7inJYgZHBseXI6OmZpbHRlcigpIG1hc2tzIHN0YXRzOjpmaWx0ZXIoKVxu4pyWIGRwbHlyOjpsYWcoKSAgICBtYXNrcyBzdGF0czo6bGFnKClcbiJ9 -->
 <pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
   method         from
   print.tbl_lazy     
   print.tbl_sql      
-── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+── Attaching packages ────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
 ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
 ✔ tibble  3.1.7     ✔ dplyr   1.0.9
 ✔ tidyr   1.2.0     ✔ stringr 1.4.0
 ✔ readr   2.1.2     ✔ forcats 0.5.1
-── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ───────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShoZXJlKVxuYGBgIn0= -->
+<pre class="r"><code>library(here)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiaGVyZSgpIHN0YXJ0cyBhdCAvVXNlcnMvbGxveWRsb21iYXJkaS9Db2RlQ2xhbiBXb3JrL2RpcnR5X2RhdGFfY29kZWNsYW5fcHJvamVjdF9sbG95ZF9sb21iYXJkaS90YXNrXzA1X3JpZ2h0X3dpbmdfYXV0aG9yaXRhcmlhbmlzbVxuIn0= -->
+<pre><code>here() starts at /Users/lloydlombardi/CodeClan Work/dirty_data_codeclan_project_lloyd_lombardi/task_05_right_wing_authoritarianism</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhIDwtIHJlYWRfY3N2KFwiY2xlYW5fZGF0YS9yd2EuY3N2XCIpXG5gYGAifQ== -->
-<pre class="r"><code>rwa &lt;- read_csv(&quot;clean_data/rwa.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhIDwtIHJlYWRfY3N2KGhlcmUoXCJjbGVhbl9kYXRhL3J3YS5jc3ZcIikpXG5gYGAifQ== -->
+<pre class="r"><code>rwa &lt;- read_csv(here(&quot;clean_data/rwa.csv&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogODAzIENvbHVtbnM6IDMyXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgICg0KTogZWR1Y2F0aW9uLCBnZW5kZXIsIGhhbmQsIHVyYmFuXG5kYmwgKDI4KTogcTMsIHE0LCBxNSwgcTYsIHE3LCBxOCwgcTksIHExMCwgcTExLCBxMTIsIHExMywgcTE0LCBxMTUsIHExNiwgcTE3LCBxMTgsIHExOSwgcTIwLCBxMjEsIHEyMiwgaW50cm9lbGFwc2UsIHRlc3RlbGFwc2UsIHMuLi5cblxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
-<pre><code>Rows: 803 Columns: 32
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogOTg4MSBDb2x1bW5zOiAzMlxu4pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIixcIlxuY2hyICAoNCk6IGVkdWNhdGlvbiwgZ2VuZGVyLCBoYW5kLCB1cmJhblxuZGJsICgyOCk6IHEzLCBxNCwgcTUsIHE2LCBxNywgcTgsIHE5LCBxMTAsIHExMSwgcTEyLCBxMTMsIHExNCwgcTE1LCBxMTYsIHExNywgcTE4LCBxMTksIHEyMCwgcTIxLCBxMjIsIGludHJvZWxhcHNlLCB0ZXMuLi5cblxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>Rows: 9881 Columns: 32
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr  (4): education, gender, hand, urban
-dbl (28): q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, q20, q21, q22, introelapse, testelapse, s...
+dbl (28): q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, q20, q21, q22, introelapse, tes...
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -1810,16 +1816,17 @@ dbl (28): q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q1
 <h1>1. What’s the average RWA score for each gender?</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhICU+JSBcbiAgZ3JvdXBfYnkoZ2VuZGVyKSAlPiUgXG4gIHN1bW1hcmlzZShhdmdfc2NvcmVfZ2VuZGVyID0gbWVhbihyd2Ffc2NvcmUpKSAlPiUgXG4gIHVuZ3JvdXAoKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhICU+JSBcbiAgZmlsdGVyKCFpcy5uYShnZW5kZXIpKSAlPiUgXG4gIGdyb3VwX2J5KGdlbmRlcikgJT4lIFxuICBzdW1tYXJpc2UoYXZnX3Njb3JlX2dlbmRlciA9IG1lYW4ocndhX3Njb3JlKSkgJT4lIFxuICB1bmdyb3VwKClcbmBgYCJ9 -->
 <pre class="r"><code>rwa %&gt;% 
+  filter(!is.na(gender)) %&gt;% 
   group_by(gender) %&gt;% 
   summarise(avg_score_gender = mean(rwa_score)) %&gt;% 
   ungroup()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0IMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEFwS3NRQ1lEYTJpSW02NEZBMWlFZ1pHQmhZRVRSRmNBcFlXQkRKQ2dBQkN6d0NRTW9BdzJ0OVRjeEp4VUtJL0ZGOEZtOVMvSlNDMENNdmhBRXZZZkdNREFnWEdSeUphZTAzc2QyRGwzK2lWZjNHMy92U1JXM1BWaUNackZySG1KdWFuRlVFdVpZSGFscCthbEFJMkU4QVFTeTlMamk1UHppMUxqb2VLb1JuQVc1WmZyd1l6aEJSblRBQ1QrLy8vL0I5MnU1SnpFWXBoZE1FR3VsTVNTUkwyMElxQitJTzhmbWhiMi9JS1N6UHc4b0NZbVVPaXdvbWxtTEVJVDRDL05BN2trUlRjNW96UXZXOWNZWkFGWUdnSjRvV3dXSkRZVHhFcW0vMUNqV0dHQmtKcVhucGtIRCtTY3hLVFVIQ2lIRCtoanNJZjFDb295ODBwZ1BnR0tGdXVWNUpja3d0UnhKZWZud0VUQWZtUDRCd0RZM2l2WkZBSUFBQT09In0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIzIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEFwS3NRQ1lEYTJpSW02NEZBMWlFZ1pHQmhZRVRSRmNBcFlXQkRKQ2dBRVFIV0lMTkxUVTNNU2NWeW1QeFJiQlovVXN5VW91QURENlFjZ2ZHbHcvUFAzZ1Y2c0EyejM5TiswcDMrOS9DRzYyQkNNMGUxcnpFM05SaXFCMU1NRHZTVS9OU2dFWkJlQUtKWmVueHhjbjVSYW54VUhGVUl6aUw4c3YxWU1id2dveHBBQkwvLy8vL2kyNVhjazVpTWN3dW1DQlhTbUpKb2w1YUVWQS9rUGNQVFF0N2ZrRkpabjRlVUJNVEtEQlkwVFF6RnFFSjhKZm1nVnlTb3B1Y1VacVhyV3NNc2dBc0RRRzhVRFl6RXBzSllpWFRmNmhSckxCQVNNMUx6OHlEQjI1T1lsSnFEcFREQi9ReDJNTjZCVVdaZVNVd253QkZpL1ZLOGtzU1llcTRrdk56WUNKZ3Z6SDhBd0NGd2srTUF3SUFBQT09In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["gender"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_score_gender"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"0","2":"1.000000"},{"1":"Female","2":"2.204141"},{"1":"Male","2":"2.879748"},{"1":"Other","2":"1.465909"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
+{"columns":[{"label":["gender"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_score_gender"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"2.239200"},{"1":"Male","2":"2.827300"},{"1":"Other","2":"1.692308"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -1842,10 +1849,10 @@ handed people.</h1>
 <pre><code>Warning in hand == c(&quot;Right&quot;, &quot;Left&quot;) :
   longer object length is not a multiple of shorter object length</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFRc1U3RE1CQzloTGhWTExWVTRqdVNwYWhpWUtnUVlvS2xBcWxiWlJJM2lScnN5bkVCaVlVdjZHZFU2Zzh5TnB4ZGU2ZzluSi9mM1h0MzU4WGpja3FYRkFDdUlJa3hFb1JBM2w2ZnNqdXdERVNRUUdydWIwemZJRERreE43blJQTE0xOXBoc21pcVdpTVltNEo1ZE56L0RRNzNjL0x3OHNQVFdlQklCUHZnWGVoV00xRTZQR2FmMWFvcnBPSXJ5MTdLVXlXL2NtOHhNaGEvR1BxK1A0VjlpcFoxdm84bmFjazB5OWNLOWZnS0pVTzUxWTBVS0lyTnlpUVFSeW9ncm5mQ1RGSm1SYjBUbSt6V05MRHA4eGs1SEY5aTB6THVuUlZ4VmdNdXFrWndQM3ZMM25uci93TTN0Z3ZuVzlVSS8rY1UyUzdYVWpOZlJ3dlplc2J1QnFkL2JKcENndWtCQUFBPSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEFwS3NRQ1lEYTJpSW02NEZBMWlFZ1pHQmhZRVRSRmNBcFlXQkRKQ2dBSmlHU0xENHBLYVZRTm1zUVpucEdTVkFCaDlJZ1FPcjc1SlphZHlkRGl5YlQwcHYxWmRITTVFMUx6RTN0UmpkdEl6RXZCUW9teSt4TEQyK09EbS9LRFVlTElxcW5iTW92MXdQWmdRdnlJZ0dJUEgvLy85LzZQWWs1eVFXdyt5QkNYS2xKSllrNnFVVkFmVURlZWhhMlBNTFNqTHo4NENhbUVCZVprWFR6RmlFSnNCZm1nZHlTWXB1Y2tacFhyYXVDY2dDc0RRRThFTFpUS2hza0pWTS82RkdzVUtOWWt2TlM4L01TNFc1UFNjeEtUVUhGaDVBSDRNOXJGZFFsSmtIQzNNdW9HaXhYa2wrU1NKTUhWZHlmZzVNQk93M2huOEFseFNFcnVrQkFBQT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["hand"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_score_hand"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Left","2":"2.207792"},{"1":"Right","2":"2.657374"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+{"columns":[{"label":["hand"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_score_hand"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Left","2":"2.662912"},{"1":"Right","2":"2.587786"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -1856,44 +1863,45 @@ handed people.</h1>
 <h1>3. What’s the average family size for each type of childhood?</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhICU+JSBcbiAgZ3JvdXBfYnkodXJiYW4pICU+JSBcbiAgc3VtbWFyaXNlKGF2Z19mYW1fc2l6ZSA9IG1lYW4oZmFtaWx5c2l6ZSkpICU+JSBcbiAgdW5ncm91cCgpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhICU+JSBcbiAgZmlsdGVyKCFpcy5uYSh1cmJhbikpICU+JSBcbiAgZ3JvdXBfYnkodXJiYW4pICU+JSBcbiAgc3VtbWFyaXNlKGF2Z19mYW1fc2l6ZSA9IG1lYW4oZmFtaWx5c2l6ZSkpICU+JSBcbiAgdW5ncm91cCgpXG5gYGAifQ== -->
 <pre class="r"><code>rwa %&gt;% 
+  filter(!is.na(urban)) %&gt;% 
   group_by(urban) %&gt;% 
   summarise(avg_fam_size = mean(familysize)) %&gt;% 
   ungroup()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIzIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMTFSUVU3RE1CRGN1akZ0STFxUWV1Z3JrZ3RDNHBnRDhJQkNVUytvY2xLM1JLUjI1ZGlBT1BFT2ZvRkVmOUFQOENBYWJNZEdsZmRnNzg1cVpyenI2Zlg4SXA3SEFOQ0ZDT2tUNnhUdzdQNDJ1UUtMUUFjaUdKajdUYmZIT2pIZ2VjdXdEVHhWZ2xTdTZOK3BYSW1jTU4rYzJRSmdaQmhaLzl2RUx1dkIxK2R1LzVCRjhuRnk4eU1ESzh6SWh0Yk9Cbm53V1BhVXZLd1hLN0paMU9VN0RkZ0R3VjlUcnpBMENoLzZhSnJtTjdRcEtsSjdHdy9HU3lKSnVoS2FyNnREUU9ueHJTdzUweVJrVm9FRGNrY0V3SmxpNWlYTHBIaFM3RG01TkFhMjNjYlE1ZDJqSExXV3FIRlMyRW1kVUxZdUdmVnZyMGhPL2RKSGVtSTdjTG9WSlpOK0VvM1dxZVR5LzNQaWdsY2VzYlBCNFE4MDRna21BUUlBQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIzIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEFwS3NRQ1lEYTJpSW02NEZBMWlFZ1pHQmhZRVRSRmNBcFlXQkRKQ2dBRVFIV0lJMXFMUW9NUWZLNFFndVRTb3RTa3JNZzBtR2dqa01ESHdnSFE1c0VaelhETmM4ZEdENTVSUVFQK3VZQS9OdmZzVVZyemFpV2NXYWw1aWJXZ3kxaGdrbWlHd3NUMkpaZW54YVltNThjV1pWS3BwdXpxTDhjajJZQ2J3Z0V4cUF4UC8vLy8raVc1T2NrMWdNc3dZbXlKV1NXSktvbDFZRTFBL2svVVBUd3A1ZlVKS1pud2ZVeEFRS0NsWTB6WXhGYUFMOHBYa2dsNlRvSm1lVTVtWHJtb0lzQUV0REFDK1V6WXpFWm9KWXlmUWZhaFFyMUNpMjFMejB6THhVbU50ekVwTlNZWUhPQi9ReDJNTjZCVVdaZVNVd253QkZpL1ZLOGt2Z2tjT1ZuSjhERXdIN2plRWZBSk5lQmJBQkFnQUEifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["urban"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_fam_size"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Rural","2":"3.088235"},{"1":"Suburban","2":"2.875339"},{"1":"Urban","2":"2.556818"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+{"columns":[{"label":["urban"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_fam_size"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Rural","2":"2.792988"},{"1":"Suburban","2":"2.622197"},{"1":"Urban","2":"2.497587"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="whats-the-average-family-size-for-each-type-of-childhood-1" class="section level1">
-<h1>4. What’s the average family size for each type of childhood?</h1>
+<div id="whats-the-average-time-to-take-the-test-for-each-education-level" class="section level1">
+<h1>4. What’s the average time to take the test for each education
+level?</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhICU+JSBcbiAgZ3JvdXBfYnkoZWR1Y2F0aW9uKSAlPiUgXG4gIHN1bW1hcmlzZShhdmdfdGltZSA9IG1lYW4odG90YWxfdGltZSkpXG5gYGAifQ== -->
-<pre class="r"><code>rwa %&gt;% 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucndhICU+JVxuICBmaWx0ZXIoIWlzLm5hKGVkdWNhdGlvbikpICU+JSBcbiAgZ3JvdXBfYnkoZWR1Y2F0aW9uKSAlPiUgXG4gIHN1bW1hcmlzZShhdmdfdGltZSA9IG1lYW4odG90YWxfdGltZSkpXG5gYGAifQ== -->
+<pre class="r"><code>rwa %&gt;%
+  filter(!is.na(education)) %&gt;% 
   group_by(education) %&gt;% 
   summarise(avg_time = mean(total_time))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0IMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMldSTVU3RE1CU0czWkFBQ1dwYWhCQnJoZzRNSkFzQ3NaRUJRWkVxQmtTbGJzZ2tKckZJN2NwMld0alkySHVDOWdvY2dXdHdBeTdBZ2hyczFKWlFzQlRuNlh0Ky8vK2VmWHN4T3ZaR0hnQmdBOWlXM0IwWkFtZDRkeG1lZ1pxQUZyQ0JxLzdQTXIwbkF3Vzc4ck4xb25QRllGcENnWUlVWlF3aGpYZjZPTXNEbnVTVUZocnREeERuZ2NnaENmSi95ZDBod1ZQRU9CWXZSZ2dBWC9uRWIrLys0c3RmeG92dTk4MzV4MUU4Ny9mbTE3MTV2RHp4RGo0SGg0MUdIUUxIaU9zbUxRMWRsSllKRkpnU0RiYmhOTHNYZUl3YTFTNmpzOGdvdEpYQ3E5eXFxdnBwMmlRRjVNYkdRQytGQWthUERDcGRzR3FVYk5HSjZrQVdXZW9pblVaeGl6VkFweVNxa3pSTThwSThoYWZLb0U2dlYxdkg5cC9ZV2x0YWxaWnl0TlFtSWhrbTVtMmNBajRnYy9HK25MZ2VPSm93VElTWlJGSWVDU3FnT2VjbHREQ2tuZzJzZmdHSWM1anFQd0lBQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0IMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMldSUVV2RE1CVEgzMnJyWEdWVEVmSGFMN0I2RU1SakJWRVBuc1RCRHNLSWJXeURYVEtTZE9wdFgwQUV6eDRFRDRKM3dadmZZWGp3dzdqVnBFdEFhcURwNC9meS92LzNrclBEL3E3Zjl3RmdDVnhIN1o0S3dldWRIM1gzb1NMUUFCZGErbityMHBzcTBIQmRmYTVKckIxemxCUkk0aURCS2NmWTROVVRrbWFCaURQR2NvTzJUckVRZ2N3UURiSi95WTBlSldQTUJaRjNWZ2lnbzMyaXo0djNqOEhrTFhxa1h3ZXZ6VTUwdnoyZDdVeG4wZFAzOHdPODBGcWpIa1ZETEV5VGpvRXRuQlF4a29SUkExYlFPQjFJTXNTMTZoWm5ONkZWYUd1RmlkcktzdnlwMjhRNUV0YkdRajlCRW9WWEhHbGRtTmRLbW15a08xQkZqcjVJcjFiYzREV3dWbERkU2RLTnM0SmVkL2UwUVpWZXJMYUozVCt4czdCMFNpUGxHYWxsVEZOQzdkdDRPYnJFOXVJN2F1SnE0SERFQ1pWMkVrVkZLSmxFOXB3ZnM5eVNhamFZL3dKL0Vmd2hQd0lBQUE9PSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["education"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_time"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Graduate degree","2":"758.2571"},{"1":"High school","2":"2056.4830"},{"1":"Less than high school","2":"1170.0357"},{"1":"University degree","2":"2202.5197"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
+{"columns":[{"label":["education"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_time"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Graduate degree","2":"8028.710"},{"1":"High school","2":"1179.707"},{"1":"Less than high school","2":"930.978"},{"1":"University degree","2":"1846.157"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCgoKYGBge3J9CnJ3YSA8LSByZWFkX2NzdigiY2xlYW5fZGF0YS9yd2EuY3N2IikKYGBgCgoKCgojIDEuIFdoYXTigJlzIHRoZSBhdmVyYWdlIFJXQSBzY29yZSBmb3IgZWFjaCBnZW5kZXI/CgpgYGB7cn0KcndhICU+JSAKICBncm91cF9ieShnZW5kZXIpICU+JSAKICBzdW1tYXJpc2UoYXZnX3Njb3JlX2dlbmRlciA9IG1lYW4ocndhX3Njb3JlKSkgJT4lIAogIHVuZ3JvdXAoKQpgYGAKCiMgMi4gV2hhdOKAmXMgdGhlIGF2ZXJhZ2UgUldBIHNjb3JlIGZvciBsZWZ0IGhhbmRlZCBwZW9wbGUgdnMuIHJpZ2h0IGhhbmRlZCBwZW9wbGUuCgpgYGB7cn0KcndhICU+JSAKICBmaWx0ZXIoaGFuZCA9PSBjKCJSaWdodCIsICJMZWZ0IikpICU+JSAKICBncm91cF9ieShoYW5kKSAlPiUgCiAgc3VtbWFyaXNlKGF2Z19zY29yZV9oYW5kID0gbWVhbihyd2Ffc2NvcmUpKSAlPiUgCiAgdW5ncm91cCgpCmBgYAoKIyAzLiBXaGF04oCZcyB0aGUgYXZlcmFnZSBmYW1pbHkgc2l6ZSBmb3IgZWFjaCB0eXBlIG9mIGNoaWxkaG9vZD8KCmBgYHtyfQpyd2EgJT4lIAogIGdyb3VwX2J5KHVyYmFuKSAlPiUgCiAgc3VtbWFyaXNlKGF2Z19mYW1fc2l6ZSA9IG1lYW4oZmFtaWx5c2l6ZSkpICU+JSAKICB1bmdyb3VwKCkKYGBgCgojIDQuIFdoYXTigJlzIHRoZSBhdmVyYWdlIGZhbWlseSBzaXplIGZvciBlYWNoIHR5cGUgb2YgY2hpbGRob29kPwpgYGB7cn0KcndhICU+JSAKICBncm91cF9ieShlZHVjYXRpb24pICU+JSAKICBzdW1tYXJpc2UoYXZnX3RpbWUgPSBtZWFuKHRvdGFsX3RpbWUpKQpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KGhlcmUpCmBgYAoKCgpgYGB7cn0KcndhIDwtIHJlYWRfY3N2KGhlcmUoImNsZWFuX2RhdGEvcndhLmNzdiIpKQpgYGAKCgoKCiMgMS4gV2hhdOKAmXMgdGhlIGF2ZXJhZ2UgUldBIHNjb3JlIGZvciBlYWNoIGdlbmRlcj8KCmBgYHtyfQpyd2EgJT4lIAogIGZpbHRlcighaXMubmEoZ2VuZGVyKSkgJT4lIAogIGdyb3VwX2J5KGdlbmRlcikgJT4lIAogIHN1bW1hcmlzZShhdmdfc2NvcmVfZ2VuZGVyID0gbWVhbihyd2Ffc2NvcmUpKSAlPiUgCiAgdW5ncm91cCgpCmBgYAoKIyAyLiBXaGF04oCZcyB0aGUgYXZlcmFnZSBSV0Egc2NvcmUgZm9yIGxlZnQgaGFuZGVkIHBlb3BsZSB2cy4gcmlnaHQgaGFuZGVkIHBlb3BsZS4KCmBgYHtyfQpyd2EgJT4lIAogIGZpbHRlcihoYW5kID09IGMoIlJpZ2h0IiwgIkxlZnQiKSkgJT4lIAogIGdyb3VwX2J5KGhhbmQpICU+JSAKICBzdW1tYXJpc2UoYXZnX3Njb3JlX2hhbmQgPSBtZWFuKHJ3YV9zY29yZSkpICU+JSAKICB1bmdyb3VwKCkKYGBgCgojIDMuIFdoYXTigJlzIHRoZSBhdmVyYWdlIGZhbWlseSBzaXplIGZvciBlYWNoIHR5cGUgb2YgY2hpbGRob29kPwoKYGBge3J9CnJ3YSAlPiUgCiAgZmlsdGVyKCFpcy5uYSh1cmJhbikpICU+JSAKICBncm91cF9ieSh1cmJhbikgJT4lIAogIHN1bW1hcmlzZShhdmdfZmFtX3NpemUgPSBtZWFuKGZhbWlseXNpemUpKSAlPiUgCiAgdW5ncm91cCgpCmBgYAoKIyA0LiBXaGF04oCZcyB0aGUgYXZlcmFnZSB0aW1lIHRvIHRha2UgdGhlIHRlc3QgZm9yIGVhY2ggZWR1Y2F0aW9uIGxldmVsPwpgYGB7cn0KcndhICU+JQogIGZpbHRlcighaXMubmEoZWR1Y2F0aW9uKSkgJT4lIAogIGdyb3VwX2J5KGVkdWNhdGlvbikgJT4lIAogIHN1bW1hcmlzZShhdmdfdGltZSA9IG1lYW4odG90YWxfdGltZSkpCmBgYAo=</div>
 
 
 

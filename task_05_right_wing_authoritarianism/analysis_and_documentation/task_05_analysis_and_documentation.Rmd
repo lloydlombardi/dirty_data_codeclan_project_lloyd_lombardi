@@ -5,12 +5,13 @@ output: html_notebook
 
 ```{r}
 library(tidyverse)
+library(here)
 ```
 
 
 
 ```{r}
-rwa <- read_csv("clean_data/rwa.csv")
+rwa <- read_csv(here("clean_data/rwa.csv"))
 ```
 
 
@@ -20,6 +21,7 @@ rwa <- read_csv("clean_data/rwa.csv")
 
 ```{r}
 rwa %>% 
+  filter(!is.na(gender)) %>% 
   group_by(gender) %>% 
   summarise(avg_score_gender = mean(rwa_score)) %>% 
   ungroup()
@@ -39,15 +41,16 @@ rwa %>%
 
 ```{r}
 rwa %>% 
+  filter(!is.na(urban)) %>% 
   group_by(urban) %>% 
   summarise(avg_fam_size = mean(familysize)) %>% 
   ungroup()
 ```
 
-# 4. What’s the average family size for each type of childhood?
+# 4. What’s the average time to take the test for each education level?
 ```{r}
-rwa %>% 
+rwa %>%
+  filter(!is.na(education)) %>% 
   group_by(education) %>% 
   summarise(avg_time = mean(total_time))
 ```
-
