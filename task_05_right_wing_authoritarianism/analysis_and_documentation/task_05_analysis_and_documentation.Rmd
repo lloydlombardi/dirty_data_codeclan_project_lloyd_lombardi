@@ -6,6 +6,7 @@ output: html_notebook
 ```{r}
 library(tidyverse)
 library(here)
+library(ggplot2)
 ```
 
 
@@ -54,3 +55,59 @@ rwa %>%
   group_by(education) %>% 
   summarise(avg_time = mean(total_time))
 ```
+
+# 5. Create a plot of results of question 4.
+```{r}
+rwa %>%
+  filter(!is.na(education)) %>% 
+  group_by(education) %>% 
+  summarise(avg_time = mean(total_time)) %>% 
+  ggplot(aes(x=education, y=avg_time)) +
+  geom_bar(stat = "identity", width = 0.5, fill="steelblue")
+```
+
+
+# 6. What’s the average RWA score for people aged: < 18, 18-25, 26-40, 41-60, >60
+```{r}
+age_18    <- subset(rwa, age < 18)
+age_18_25 <- subset(rwa, age > 18 & age < 26)
+age_26_40 <- subset(rwa, age > 25 & age < 41)
+age_41_60 <- subset(rwa, age > 40 & age < 61)
+age_61    <- subset(rwa, age > 60)
+```
+
+```{r}
+age_18_score <- age_18 %>% 
+  summarise(avg_score = mean(rwa_score))
+
+age_18_score
+```
+
+```{r}
+age_18_25_score <- age_18_25 %>% 
+  summarise(avg_score = mean(rwa_score))
+
+age_18_25_score
+```
+
+```{r}
+age_26_40_score <- age_26_40 %>% 
+  summarise(avg_score = mean(rwa_score))
+
+age_26_40_score
+```
+
+```{r}
+age_41_60_score <- age_41_60 %>% 
+  summarise(avg_score = mean(rwa_score))
+
+age_41_60_score
+```
+
+```{r}
+age_61_score <- age_61 %>% 
+  summarise(avg_score = mean(rwa_score))
+
+age_61_score
+```
+
