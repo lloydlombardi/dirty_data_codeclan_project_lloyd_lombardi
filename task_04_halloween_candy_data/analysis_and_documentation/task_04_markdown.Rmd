@@ -1,0 +1,457 @@
+---
+title: "Task_04_Halloween_Candy"
+author: "Lloyd Lombardi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# Task 4 - Halloween Candy
+
+```{r, echo=FALSE}
+library(meme)
+u <- "https://www.care.com/c/wp-content/uploads/sites/2/2021/10/Screen-Shot-2021-09-30-at-8.36.29-AM-1024x993.png"
+meme(u)
+```
+
+## Introduction
+The purpose of this Markdown file is to give an overview of Task 4 of the **Dirty Data Project**.
+
+The task concerned 3 `.xlsx` files which contained data about **Halloween Candy** over three years:
+**2015, 2016 & 2017**.
+
+The data was in an **untidy** format, and therefore needed to be cleaned before
+the following questions could be answered:
+
+1. What is the total number of candy ratings given across the three years?
+2. What was the average age of people who are going out trick or treating?
+3. What was the average age of people who are not going trick or treating?
+4. For each of joy, despair and meh, which candy bar received the most of these ratings?
+5. How many people rated Starburst as despair?
+6. What was the most popular candy bar by this rating system for each gender in the dataset ?
+7. What was the most popular candy bar in each year?
+8. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
+
+
+The data had 3 separate `.xlsx` files which contained similar information, but a **lot** of cleaning was required before any analysis could be conducted.
+
+
+In the rest of this document, the following information will be presented:
+
+- A list of assumptions made
+- Steps taken to clean the data
+- Answers to the analysis questions
+
+
+## Assumptions Made
+
+- Only seven columns were required to **fully answer the analysis questions**
+    1. candies
+    2. year
+    3. rating
+    4. age
+    5. gender
+    6. country
+    7. trick or treating
+- Columns could be renamed to match candies from other data sets
+- Data should be **pivoted longer** to make analysis easier
+- All candy was kept in from all tables
+- The age column could be filtered to only return ages between 0 and 100
+- The 'extra' columns towards the end of each data sets that asked users to input other candies to give them **JOY** or **DESPAIR** could be dropped as this would have no affect on the final analysis questions
+- The 2015 data set could have **gender** and **country** columns added to them, with **NA** values for all
+- Any users that input a **US State** as their country had this changed to **USA**
+- Any users that input a **Home Nation** as their country had this changed to **UK**
+- Any users that input an unrecognisable country had their input **dropped**
+- Trick or treating column could be converted to a logical column
+
+
+## Steps Taken to Clean the Data
+
+The tables were cleaned separately before being joined together
+
+### 2015 Cleaninig
+
+- The first step was to rename some columns to match the 2016 & 2017 candies
+```{r, eval=FALSE}
+candy_2015 <- candy_2015 %>% 
+  rename(boxo_raisins = box_o_raisins,
+         hersheys_kisses = hershey_s_kissables,
+         licorice_yes_black = licorice)
+```
+
+- The age columns were then tidied and wrangled
+- Any age 100 or over was removed
+- An age equivalent to pi was removed
+- Various ages with other syntax were tidied to only return a numerical value
+```{r, eval=FALSE}
+candy_2015_ages <- candy_2015 %>% 
+  mutate(how_old_are_you = str_remove_all(how_old_are_you, "[0-9][0-9][0-9]"),
+         how_old_are_you = str_remove_all(how_old_are_you, "3.14%"),
+         how_old_are_you = str_replace(how_old_are_you, ">39", "39"),
+         how_old_are_you = str_replace(how_old_are_you, "７１＋", "71"),
+         how_old_are_you = str_replace(how_old_are_you, "Good Lord!  I'm 43!", "43"))
+```
+
+- The candy columns were pivoted longer
+- A range of columns were selected for the updated data set
+- Two further columns were named as they fell outside of this range
+```{r, eval=FALSE}
+candy_2015_longer <- candy_2015_ages %>% 
+  pivot_longer(cols = c(butterfinger:york_peppermint_patties, 
+                        sea_salt_flavored_stuff_probably_chocolate_since_this_is_the_it_flavor_of_the_year, 
+                        necco_wafers),
+               names_to = "candies",
+               values_to = "rating")
+```
+
+- A **year** column was added with 2015 for all values
+- The candies, rating and year columns were moved to the front of the data set
+- 5 of the 7 columns stated in the assumptions were selected
+- 2 columns were renamed to **age** and **trick_or_treating**
+```{r, eval=FALSE}
+candy_2015_clean <- candy_2015_longer %>% 
+  mutate(year = 2015) %>% 
+  relocate(c(candies:year), .after = timestamp) %>% 
+  select(c(candies:are_you_going_actually_going_trick_or_treating_yourself)) %>% 
+  rename(age = how_old_are_you,
+         trick_or_treating = are_you_going_actually_going_trick_or_treating_yourself)
+```
+
+- The age column was changed to a **numeric** type
+- One or more number characters were extracted before being converted
+```{r, eval=FALSE}
+candy_2015_clean <- candy_2015_clean %>% 
+  mutate(age = str_extract(age, "^[0-9]+")) %>% 
+  mutate(age = as.numeric(age))
+```
+
+- The ages were then filtered to meet the above assumption
+```{r, eval=FALSE}
+candy_2015_clean <- candy_2015_clean %>% 
+  filter(age > 0,
+         age < 100)
+```
+
+- A country and gender were added to complete the 7 required columns
+- These were populated with NA values
+```{r, eval=FALSE}
+candy_2015_clean <- candy_2015_clean %>% 
+  mutate(country = "",
+         country = na_if(country, ""),
+         gender = "",
+         gender = na_if(gender, ""))
+```
+
+
+### 2016 Cleaning
+
+- The age column was the first thing to be tidied
+- Any age 100 or over was removed
+- Various ages with other syntax were tidied to only return a numerical value
+```{r, eval=FALSE}
+candy_2016_ages <- candy_2016 %>% 
+  mutate(how_old_are_you = str_remove_all(how_old_are_you, "[0-9][0-9][0-9]"),
+         how_old_are_you = str_replace(how_old_are_you, "49 11/12ths", "49"),
+         how_old_are_you = str_replace(how_old_are_you, "Fifty.  Nine.  Ish.", "59"))
+```
+
+- The candy columns were pivoted longer
+- A range of columns were selected for the updated data set
+```{r, eval=FALSE}
+candy_2016_longer <- candy_2016_ages %>% 
+  pivot_longer(cols = c(x100_grand_bar:york_peppermint_patties),
+               names_to = "candies",
+               values_to = "rating")
+```
+
+- Columns were wrangled
+- A **year** column was added with 2016 for all values
+- The candies, rating and year columns were moved to the front of the data set
+- 7 columns stated in the assumptions were selected
+- 4 columns were renamed to **age**, **trick_or_treating**, **gender** and **country** to match the 2015 table
+```{r, eval=FALSE}
+candy_2016_clean <- candy_2016_longer %>% 
+  mutate(year = 2016) %>% 
+  relocate(c(candies:year), .after = timestamp) %>% 
+  select(c(candies:which_country_do_you_live_in)) %>% 
+  rename(age = how_old_are_you,
+         trick_or_treating = are_you_going_actually_going_trick_or_treating_yourself,
+         gender = your_gender,
+         country = which_country_do_you_live_in)
+```
+
+- Some columns were moved again to match 2015 exactly
+```{r, eval=FALSE}
+candy_2016_clean <- candy_2016_clean %>% 
+  relocate(age, .after = year)
+
+candy_2016_clean <- candy_2016_clean %>% 
+  relocate(gender, .after = country)
+```
+
+- The age column was changed to a **numeric** type
+- One or more number characters were extracted before being converted
+```{r, eval=FALSE}
+candy_2016_clean <- candy_2016_clean %>% 
+  mutate(age = str_extract(age, "^[0-9]+")) %>% 
+  mutate(age = as.numeric(age))
+```
+
+- The ages were filtered to match above
+```{r, eval=FALSE}
+candy_2016_clean <- candy_2016_clean %>% 
+  filter(age > 0,
+         age < 100)
+```
+
+
+### 2017 Cleaning
+
+- Remove the 'q1' style prefix to the column names
+```{r, eval=FALSE}
+candy_2017 <- candy_2017 %>% 
+  rename_with(~ gsub("^q[0-9]_", "", .x))
+```
+
+- Add an 'x' onto the name of a candy to match the 2015 & 2016 data sets
+```{r, eval=FALSE}
+candy_2017 <- candy_2017 %>% 
+  rename_with(~str_replace(., "^", "x"), .cols = starts_with("100"))
+```
+
+- Rename a candy to match the 2015 & 2016 data sets
+```{r, eval=FALSE}
+candy_2017 <- candy_2017 %>% 
+  rename(mary_janes = anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes)
+```
+
+- The age column was the first thing to be tidied
+- Any age 100 or over was removed
+- Various ages with other syntax were tidied to only return a numerical value
+```{r, eval=FALSE}
+candy_2017_ages <- candy_2017 %>% 
+  mutate(age = str_remove_all(age, "[0-9][0-9][0-9]"),
+         age = str_replace(age, "45-55", "50"),
+         age = str_replace(age, "24-50", "37"),
+         age = str_replace(age, "sixty-nine", "69"))
+```
+
+- The candy columns were pivoted longer
+- A range of columns were selected for the updated data set
+```{r, eval=FALSE}
+candy_2017_longer <- candy_2017_ages %>% 
+  pivot_longer(cols = c(x100_grand_bar:york_peppermint_patties),
+               names_to = "candies",
+               values_to = "rating")
+```
+
+- Column wrangling
+- A **year** column was added with 2016 for all values
+- The candies, rating and year columns were moved to the front of the data set
+- 7 columns stated in the assumptions were selected
+- 1 column1 was renamed to **trick_or_treating**to match the 2015 & 2016 table
+```{r, eval=FALSE}
+candy_2017_clean <- candy_2017_longer %>% 
+  mutate(year = 2017) %>% 
+  relocate(c(candies:year), .after = internal_id) %>% 
+  select(c(candies:country)) %>% 
+  rename(trick_or_treating = going_out)
+```
+
+- Some columns were moved again to match 2015 & 2016 exactly
+```{r, eval=FALSE}
+candy_2017_clean <- candy_2017_clean %>% 
+  relocate(age, .after = year)
+
+candy_2017_clean <- candy_2017_clean %>% 
+  relocate(gender, .after = country)
+
+```
+
+- The age column was changed to a **numeric** type
+- One or more number characters were extracted before being converted
+```{r, eval=FALSE}
+candy_2017_clean <- candy_2017_clean %>% 
+  mutate(age = str_extract(age, "^[0-9]+")) %>% 
+  mutate(age = as.numeric(age))
+```
+
+- The ages were filtered to match above
+```{r, eval=FALSE}
+candy_2017_clean <- candy_2017_clean %>% 
+  filter(age > 0,
+         age < 100)
+```
+
+
+### Joining Tables
+
+It was decided that `bind_rows` was the best option to join the tables as they all had identical column names
+```{r, eval=FALSE}
+candy <- bind_rows(candy_2015_clean, candy_2016_clean, candy_2017_clean)
+```
+
+
+### Cleaning the Country Column
+
+The **country** column was particularly messy, and it was decided that it would be more efficient to clean this after the tables were joined
+
+There were **115** `distinct` countries in the raw data, and when cleaned there were **39**.
+
+- The countries were changed `to_title` to merge some values together
+```{r, eval=FALSE}
+candy <- candy %>% 
+  mutate(country = str_to_title(country))
+```
+
+- Vectors were created to capture some information to be converted into a country
+```{r, eval=FALSE}
+states <- c("North Carolina", "Pittsburgh", "New York", "California", "New Jersey", "Alaska")
+uk <- c("England", "Scotland", "Endland")
+```
+
+- Regex was used to convert variations of USA, UK, Canada, Spain and Netherlands to one input per country
+- `case_when` was used to detect strings in this column and then change that to a stated string
+- A default value was then stated for all other countries
+```{r, eval=FALSE}
+candy_country_sorted <- candy %>% 
+  mutate(country = case_when(
+    str_detect(country,"((?i)[a-z]* *[:punct:])*((?i)^u+ *[:punct:]*(?i)[ns]+ *[:punct:]*(?i)s* *[:punct:]*(?i)a* *[:punct:]*)+((?i)[a-z]* *[:punct:])*") ~ "USA",
+    str_detect(country, "(?i)a+mer") ~ "USA",
+    str_detect(country, "(?i)t+[a-z]* *(?i)u+[a-z]* *(?i)s+[a-z]* *(?i)o*[a-z]* *(?i)a*[a-z]*") ~ "USA",
+    str_detect(country, " +U+[sa]*") ~ "USA",
+    str_detect(country, "T+[a-z]* Y+[a-z]* E+[a-z]* O+[a-z]* A+[a-z]*") ~ "USA",
+    str_detect(country, "[:punct:]*M+[ue]+[r]+") ~ "USA",
+    country %in% states ~ "USA",
+    str_detect(country, "^(?i)u+[:punct:]*(?i)k+") ~ "UK",
+    country %in% uk ~ "UK",
+    str_detect(country, "(^(?i)can)+[a-z]*[:punct:]*") ~ "Canada",
+    str_detect(country, "ñ+") ~ "Spain",
+    str_detect(country, "The N+") ~ "Netherlands",
+    TRUE ~ country
+  ))
+```
+
+- Another vector was created to capture 'other' countries that had no real value
+```{r, eval=FALSE}
+country_outliers = c("A tropical island south of the equator", "Ud", "Atlantis",
+                     "Canae", "cascadia ", "Cascadia", "Denial", "Earth", "1", 
+                     "god's country", "I Don't Know Anymore", "insanity lately", 
+                     "There Isn't One For Old Men", "Soviet Canuckistan", "Narnia", "Neverland",
+                     "one of the best ones", "See above", "Somewhere", "subscribe to dm4uz3 on youtube",
+                     "The Republic Of Cascadia", "this one", "Eua", "Europe")
+```
+
+- The above 'other' countries were then converted to **NA** values as they were not useful for analysis
+```{r, eval=FALSE}
+candy_country_sorted <- candy_country_sorted %>% 
+  mutate(country = if_else(country %in% country_outliers, NA_character_, country))
+```
+
+
+## Assertive Programming and Unit Testing
+
+It was decided to introduce some **Assertive Programming** and **Unit Testing** to the cleaning script
+
+The scope and span of these are admittedly quite narrow and not that useful, but they were left in to showcase their use
+
+- The **trick_or_treating** column was converted to a logical type for the Unit Test
+```{r, eval=FALSE}
+candy_country_sorted <- candy_country_sorted %>% 
+  mutate(trick_or_treating = recode(trick_or_treating,
+                                    "Yes" = "TRUE",
+                                    "No" = "FALSE"),
+         trick_or_treating = as.logical(trick_or_treating))
+```
+
+- A unit test was then performed to check that numerical or character inputs would return a test passed
+```{r, eval=FALSE}
+test_that("Expect error if trick_or_treating is not logical", {
+  expect_error(trick_or_treating(10))
+  expect_error(trick_or_treating("Yes"))
+})
+```
+
+- Assertive programming was used to verify that the ages were within the stated limits and the years were only 2015, 2016 or 2017
+```{r, eval=FALSE}
+candy_clean %>% 
+  verify(age > 0 & age < 100) %>% 
+  verify(year == 2015 | 2016 | 2017)
+```
+
+
+## Answers to the Analysis Questions
+
+##### 1. What is the total number of candy ratings given across the three years?
+```{r, eval=FALSE}
+count_rating = 738763 
+```
+
+##### 2. What was the average age of people who are going out trick or treating?
+```{r, eval=FALSE}
+avg_age_tt = 35
+```
+
+##### 3. What was the average age of people who are not going trick or treating?
+```{r, eval=FALSE}
+avg_age_no_tt = 39
+```
+
+##### 4. For each of joy, despair and meh, which candy bar received the most of these ratings?
+```{r, eval=FALSE}
+JOY:
+          any_full_sized_candy_bar - 7268
+
+DESPAIR:
+          broken_glow_stick - 7561
+  
+MEH:
+          lollipops - 1512
+```
+
+##### 5. How many people rated Starburst as despair?
+```{r, eval=FALSE}
+despair_rating_count_starburst - 1873
+```
+
+##### 6. What was the most popular candy bar by this rating system for each gender in the dataset ?
+```{r, eval=FALSE}
+Male:
+          any_full_sized_candy_bar - 1537
+  
+Female:
+          any_full_sized_candy_bar - 856
+  
+Other:
+          any_full_sized_candy_bar - 51
+  
+NA: 
+          any_full_sized_candy_bar - 4412
+```
+
+##### 7. What was the most popular candy bar in each year?
+```{r, eval=FALSE}
+2015:
+          any_full_sized_candy_bar - 4405
+  
+2016:
+          any_full_sized_candy_bar - 987
+  
+2017:
+          any_full_sized_candy_bar - 1499
+```
+
+##### 8. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
+```{r, eval=FALSE}
+USA: 
+          any_full_sized_candy_bar - 2139
+
+UK:
+          cash_or_other_forms_of_legal_tender - 25
+
+Canada:
+          any_full_sized_candy_bar - 248
+
+Others:
+          any_full_sized_candy_bar - 65
+```
+
+### Check out the **Github Repo** [here](https://github.com/lloydlombardi/dirty_data_codeclan_project_lloyd_lombardi/tree/main/task_04_halloween_candy_data)

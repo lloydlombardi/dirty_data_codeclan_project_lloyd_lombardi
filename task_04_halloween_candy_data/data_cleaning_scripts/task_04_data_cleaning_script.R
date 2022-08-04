@@ -4,6 +4,7 @@ library(janitor)
 library(readxl)
 library(assertr)
 library(stringr)
+library(testthat)
 
 # Read in the 3 xlsx sheets
 candy_2015 <- read_excel("raw_data/boing-boing-candy-2015.xlsx")
@@ -282,11 +283,33 @@ candy_country_sorted <- candy_country_sorted %>%
   mutate(country = if_else(country %in% country_outliers, NA_character_, country))
 
 
+# Change trick_or_treating column to logical type
+candy_country_sorted <- candy_country_sorted %>% 
+  mutate(trick_or_treating = recode(trick_or_treating,
+                                    "Yes" = "TRUE",
+                                    "No" = "FALSE"),
+         trick_or_treating = as.logical(trick_or_treating))
+
+# Perform a unit test to check for numerical or character inputs
+test_that("Expect error if trick_or_treating is not logical", {
+  expect_error(trick_or_treating(10))
+  expect_error(trick_or_treating("Yes"))
+})
+
 # Rename dataset
 candy_clean <- candy_country_sorted
 
+
+################################################################################
+                        # Assertive Programming
+################################################################################
+
+
 candy_clean %>% 
-  distinct(country)
+  verify(age > 0 & age < 100) %>% 
+  verify(year == 2015 | 2016 | 2017)
+
+
 ################################################################################
                                 # Write csv
 ################################################################################

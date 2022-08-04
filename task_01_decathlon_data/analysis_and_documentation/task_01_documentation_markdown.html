@@ -392,11 +392,15 @@ less than 50 seconds vs. those than ran 400m in more than 50
 seconds?</li>
 </ol>
 <p>In the rest of this document, the following information will be
-presented: - A list of assumptions made - Steps taken to clean the data
-- Answers to the analysis questions</p>
+presented:</p>
+<ul>
+<li>A list of assumptions made</li>
+<li>Steps taken to clean the data</li>
+<li>Answers to the analysis questions</li>
+</ul>
 </div>
-<div id="a-list-of-assumptions-made" class="section level2">
-<h2>A list of assumptions made</h2>
+<div id="assumptions-made" class="section level2">
+<h2>Assumptions Made</h2>
 <ul>
 <li>Data can be left in ‘wide’ format to answer analysis questions</li>
 <li>Events could be split into two categories
@@ -413,7 +417,7 @@ competition and find their shot-put scores at that competition</li>
 </ul>
 </div>
 <div id="steps-taken-to-clean-the-data" class="section level2">
-<h2>Steps taken to clean the data</h2>
+<h2>Steps Taken to Clean the Data</h2>
 <p>The raw data had row names, and these needed to be changed into a
 column. The <code>rownames_to_column</code> function from tibble was
 called to perform this</p>
@@ -459,24 +463,23 @@ limits</p>
   verify(`1500m_(s)` &gt; 230)</code></pre>
 </div>
 <div id="answers-to-the-analysis-questions" class="section level2">
-<h2>Answers to the analysis questions</h2>
-<ol style="list-style-type: decimal">
-<li>Who had the longest jump seen in the data?</li>
-</ol>
+<h2>Answers to the Analysis Questions</h2>
+<div id="who-had-the-longest-jump-seen-in-the-data" class="section level5">
+<h5>1. Who had the longest jump seen in the data?</h5>
 <pre class="r"><code>Clay - 7.96m</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>What was the average 100m time in each competition?</li>
-</ol>
+</div>
+<div id="what-was-the-average-100m-time-in-each-competition" class="section level5">
+<h5>2. What was the average 100m time in each competition?</h5>
 <pre class="r"><code>Decastar - 11.18s
 OlympicG - 10.92s</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Who had the highest total points across both competitions?</li>
-</ol>
+</div>
+<div id="who-had-the-highest-total-points-across-both-competitions" class="section level5">
+<h5>3. Who had the highest total points across both competitions?</h5>
 <pre class="r"><code>Sebrle - 17110 points</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>What was the shot-put scores for the top three competitors in each
-competition?</li>
-</ol>
+</div>
+<div id="what-was-the-shot-put-scores-for-the-top-three-competitors-in-each-competition" class="section level5">
+<h5>4. What was the shot-put scores for the top three competitors in
+each competition?</h5>
 <pre class="r"><code>Decaster:
               1. Sebrle   - 14.83m
               2. Clay     - 14.26m
@@ -485,14 +488,17 @@ OlympicG:
               1. Sebrle   - 16.36m
               2. Clay     - 15.23m
               3. Karpov   - 15.93m</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>What was the average points for competitiors who ran the 400m in
+</div>
+<div id="what-was-the-average-points-for-competitiors-who-ran-the-400m-in-less-than-50-seconds-vs.-those-than-ran-400m-in-more-than-50-seconds" class="section level5">
+<h5>5. What was the average points for competitiors who ran the 400m in
 less than 50 seconds vs. those than ran 400m in more than 50
-seconds?</li>
-</ol>
+seconds?</h5>
 <pre class="r"><code>Average points for competitors who ran 400m in less than 50s - 8120 points
 Average points for competitors who ran 400m in more than 50s - 7727 points</code></pre>
-<p>You can access the <strong>Github Repo</strong> <a href="https://github.com/lloydlombardi/dirty_data_codeclan_project_lloyd_lombardi/tree/main/task_01_decathlon_data">here</a></p>
+</div>
+<div id="you-can-access-the-github-repo-here" class="section level3">
+<h3>You can access the <strong>Github Repo</strong> <a href="https://github.com/lloydlombardi/dirty_data_codeclan_project_lloyd_lombardi/tree/main/task_01_decathlon_data">here</a></h3>
+</div>
 </div>
 </div>
 

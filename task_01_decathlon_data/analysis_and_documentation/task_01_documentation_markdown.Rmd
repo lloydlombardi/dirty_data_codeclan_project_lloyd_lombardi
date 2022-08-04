@@ -24,12 +24,13 @@ the following questions could be answered:
    seconds vs. those than ran 400m in more than 50 seconds?
 
 In the rest of this document, the following information will be presented:
+
 - A list of assumptions made
 - Steps taken to clean the data
 - Answers to the analysis questions
 
 
-## A list of assumptions made
+## Assumptions Made
 
 - Data can be left in 'wide' format to answer analysis questions
 - Events could be split into two categories
@@ -43,7 +44,7 @@ In the rest of this document, the following information will be presented:
   and find their shot-put scores at that competition
 
 
-## Steps taken to clean the data
+## Steps Taken to Clean the Data
 
 The raw data had row names, and these needed to be changed into a column. The `rownames_to_column` function from tibble was called to perform this
 ```{r,eval=FALSE}
@@ -110,25 +111,25 @@ decathlon_clean %>%
 ```
 
 
-## Answers to the analysis questions
+## Answers to the Analysis Questions
 
-1. Who had the longest jump seen in the data?
+##### 1. Who had the longest jump seen in the data?
 ```{r,eval=FALSE}
 Clay - 7.96m
 ```
 
-2. What was the average 100m time in each competition?
+##### 2. What was the average 100m time in each competition?
 ```{r,eval=FALSE}
 Decastar - 11.18s
 OlympicG - 10.92s
 ```
 
-3. Who had the highest total points across both competitions?
+##### 3. Who had the highest total points across both competitions?
 ```{r,eval=FALSE}
 Sebrle - 17110 points
 ```
 
-4. What was the shot-put scores for the top three competitors in each competition?
+##### 4. What was the shot-put scores for the top three competitors in each competition?
 ```{r,eval=FALSE}
 Decaster:
               1. Sebrle   - 14.83m
@@ -140,12 +141,15 @@ OlympicG:
               3. Karpov   - 15.93m
 ```
 
-5. What was the average points for competitiors who ran the 400m in less than 50
-   seconds vs. those than ran 400m in more than 50 seconds?
+##### 5. What was the average points for competitiors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
 ```{r,eval=FALSE}
 Average points for competitors who ran 400m in less than 50s - 8120 points
 Average points for competitors who ran 400m in more than 50s - 7727 points
 ```
 
 
-You can access the **Github Repo** [here](https://github.com/lloydlombardi/dirty_data_codeclan_project_lloyd_lombardi/tree/main/task_01_decathlon_data) 
+
+### You can access the **Github Repo** [here](https://github.com/lloydlombardi/dirty_data_codeclan_project_lloyd_lombardi/tree/main/task_01_decathlon_data) 
+
+
+
