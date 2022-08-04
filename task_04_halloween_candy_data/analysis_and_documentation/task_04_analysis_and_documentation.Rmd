@@ -2,14 +2,14 @@
 title: "R Notebook"
 output: html_notebook
 ---
+# Load in the libraries
 ```{r}
 library(tidyverse)
 library(here)
 library(stringr)
 ```
 
-
-
+#Read in clean csv
 ```{r}
 candy <- read_csv(here("clean_data/candy_clean.csv"))
 ```
@@ -21,6 +21,11 @@ candy %>%
   filter(!is.na(rating)) %>% 
   summarise(count_rating = n())
 ```
+The above code chunk was attempting to find the total number of candy ratings
+It was decided that all NA ratings should be dropped via a `filter`
+The total count was then calculated by using a `summarise`
+
+
 
 #2. What was the average age of people who are going out trick or treating?
 ```{r}
@@ -28,6 +33,11 @@ candy %>%
   filter(trick_or_treating == "Yes") %>% 
   summarise(avg_age_tt = floor(mean(age)))
 ```
+The aim here was to find the average age of people who went trick or treating
+The data was filtered to only return people that went trick or treating
+The average age was then calculated by using the `summarise` function and finding the `mean` age
+It was decided to `floor` this avg_age value to return the nearest age
+
 
 # 3. What was the average age of people who are not going trick or treating?
 ```{r}
@@ -35,6 +45,10 @@ candy %>%
   filter(trick_or_treating == "No") %>% 
   summarise(avg_age_no_tt = floor(mean(age)))
 ```
+The aim here was to find the average age of people who didn't go trick or treating
+The data was filtered to only return people that didn't go trick or treating
+The average age was then calculated by using the `summarise` function and finding the `mean` age
+It was decided to `floor` this avg_age value to return the nearest age
 
 
 # 4. For each of joy, despair and meh, which candy bar received the most of these ratings?
@@ -63,6 +77,13 @@ candy %>%
   head(1) %>% 
   ungroup()
 ```
+The aim here was to find the top rated candy bars for each of the 3 rating categories
+3 separate code chunks were written to return 3 separate answers
+Each code was filtered to match the rating category
+The data was then grouped by the type of candy, followed by the rating category
+These ratings were then counted using `summarise` 
+The data was then arranged in descending order to find the candy with the most ratings for each category
+The top result for each was taken by using the `head` function
 
 
 # 5. How many people rated Starburst as despair?
@@ -72,6 +93,11 @@ candy %>%
   filter(rating == "DESPAIR") %>% 
   summarise(despair_rating_count_starburst = n())
 ```
+This question asked to find how many people rated Starburst as DESPAIR
+The data was filtered by candy and rating to only return the relevant results
+The value was then counted by using the `summarise` verb
+
+
 # For the next three questions, count despair as -1, joy as +1, and meh as 0.
 ```{r}
 candy_count <- candy %>% 
@@ -82,6 +108,8 @@ candy_count <- candy %>%
 candy_count <- candy_count %>% 
   mutate(rating = as.numeric(rating))
 ```
+For the next series of questions, it was decided to recode the rating system to numeric values
+These values could then be summed to return a numeric value
 
 
 # 6. What was the most popular candy bar by this rating system for each gender in the dataset ?
@@ -122,6 +150,12 @@ candy_count %>%
   head(1) %>% 
   ungroup()
 ```
+There were 4 gender categories that were filtered to find the most popular candy bar in each
+The data was first of all filtered to only return candies with a rating
+The data was then filtered by gender
+Candies were grouped together 
+`Summarise` was then used to sum the ratings for each candy (1 for JOY, 0 for MEH, -1 for DESPAIR)
+The results were then arranged in descending order before taking the top result for each
 
 
 # 7. What was the most popular candy bar in each year?
@@ -155,6 +189,12 @@ candy_count %>%
   head(1) %>% 
   ungroup()
 ```
+The years were filtered to find the most popular candy bar in each
+The data was first of all filtered to only return candies with a rating
+The data was then filtered by years
+Candies were grouped together 
+`Summarise` was then used to sum the ratings for each candy (1 for JOY, 0 for MEH, -1 for DESPAIR)
+The results were then arranged in descending order before taking the top result for each
 
 
 # 8. What was the most popular candy bar by this rating for people in US, Canada, UK, and all other countries?
@@ -199,4 +239,10 @@ candy_count %>%
   head(1) %>% 
   ungroup()
 ```
-
+There were 4 categories of countries that were filtered to find the most popular candy bar in each
+The data was first of all filtered to only return candies with a rating
+The data was then filtered by country
+Candies were grouped together 
+`Summarise` was then used to sum the ratings for each candy (1 for JOY, 0 for MEH, -1 for DESPAIR)
+The results were then arranged in descending order before taking the top result for each
+For the last group, it was decided to find all the countries, apart from USA, UK & Canada
