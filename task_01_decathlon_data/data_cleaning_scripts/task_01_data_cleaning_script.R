@@ -4,9 +4,10 @@ library(janitor)
 library(readr)
 library(assertr)
 library(stringr)
+library(here)
 
 # Read in the raw data
-decathlon <- read_rds("raw_data/decathlon.rds")
+decathlon <- read_rds(here("raw_data/decathlon.rds"))
 
 # Change row_names to first column 'athlete_name'
 decathlon <- tibble::rownames_to_column(decathlon, var = "athlete_name")
@@ -27,7 +28,7 @@ decathlon_clean <- decathlon_clean %>%
   relocate(c(rank:competition), .after = athlete_name)
 
 # Source in column names
-source("data_cleaning_scripts/event_columns.R")
+source(here("data_cleaning_scripts/event_columns.R"))
 
 # Add in seconds units to the race columns
 decathlon_clean <- decathlon_clean %>% 

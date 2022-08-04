@@ -1,0 +1,151 @@
+---
+title: "task_01_decathlon_data"
+author: "Lloyd Lombardi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# Task 1 - Decathlon Data
+
+
+## Introduction
+The purpose of this Markdown file is to give an overview of Task 1 of the
+**Dirty Data Project**.
+
+The task concerned a single `.rds` file which contained decathlon data.
+
+The data was in an **untidy** format, and therefore needed to be cleaned before
+the following questions could be answered:
+
+1. Who had the longest jump seen in the data?
+2. What was the average 100m time in each competition?
+3. Who had the highest total points across both competitions?
+4. What was the shot-put scores for the top three competitors in each competition?
+5. What was the average points for competitiors who ran the 400m in less than 50
+   seconds vs. those than ran 400m in more than 50 seconds?
+
+In the rest of this document, the following information will be presented:
+- A list of assumptions made
+- Steps taken to clean the data
+- Answers to the analysis questions
+
+
+## A list of assumptions made
+
+- Data can be left in 'wide' format to answer analysis questions
+- Events could be split into two categories
+    1. Race events
+    2. Athletics events
+- All 'Race events' were recorded in seconds
+- All 'Athletics events' were recorded in meters
+- Assertive programming could be used by inputting the current World Records as
+  limits
+- Analysis Q4 was taken to mean, find the top 3 competitors in each competition
+  and find their shot-put scores at that competition
+
+
+## Steps taken to clean the data
+
+The raw data had row names, and these needed to be changed into a column. The `rownames_to_column` function from tibble was called to perform this
+```{r,eval=FALSE}
+decathlon <- tibble::rownames_to_column(decathlon, var = "athlete_name")
+```
+
+The athletes' names were in an untidy format
+Names were converted to title, usins `str_to_title`
+```{r,eval=FALSE}
+decathlon <- decathlon %>% 
+  mutate(athlete_name = str_to_title(athlete_name))
+```
+
+The column names were currently untidy
+Janitor `clean_names` was run
+```{r,eval=FALSE}
+decathlon_clean <- clean_names(decathlon)
+```
+
+To further tidy the column names, any column beginning with an 'x' was edited
+so that the 'x' was removed
+The `rename_with` function was employed
+```{r,eval=FALSE}
+decathlon_clean <- decathlon_clean %>% 
+  rename_with(~ gsub("^x", "", .x))
+```
+
+To make the data frame easier to read, the rank, points and competition columns
+were moved to after the athletes' names
+This was completed by using `relocate`
+```{r,eval=FALSE}
+decathlon_clean <- decathlon_clean %>% 
+  relocate(c(rank:competition), .after = athlete_name)
+```
+
+
+
+The first vector was used to add 'seconds' as units to the columns of races
+```{r,eval=FALSE}
+decathlon_clean <- decathlon_clean %>% 
+  rename_with(~str_replace(., "$", "_(s)"), .cols = starts_with(race_columns))
+```
+
+The second vector was used to add 'meters' as units to the columns of athletics
+```{r,eval=FALSE}
+decathlon_clean <- decathlon_clean %>%
+  rename_with(~str_replace(., "$", "_(m)"), .cols = starts_with(athletics_columns))
+```
+
+Some assertive programming was coded to verify the various scores
+The current World Records for each individual event was used for the limits
+```{r,eval=FALSE}
+decathlon_clean %>% 
+  verify(`100m_(s)` > 9.85) %>% 
+  verify(`long_jump_(m)` < 8.95) %>% 
+  verify(`shot_put_(m)` < 23.37) %>% 
+  verify(`high_jump_(m)` < 2.45) %>% 
+  verify(`400m_(s)` > 43.03) %>% 
+  verify(`110m_hurdle_(s)` > 12.8) %>% 
+  verify(`discus_(m)` < 74.08) %>% 
+  verify(`pole_vault_(m)` < 6.21) %>% 
+  verify(`javeline_(m)` < 98.48) %>% 
+  verify(`1500m_(s)` > 230)
+```
+
+
+## Answers to the analysis questions
+
+1. Who had the longest jump seen in the data?
+```{r,eval=FALSE}
+Clay - 7.96m
+```
+
+2. What was the average 100m time in each competition?
+```{r,eval=FALSE}
+Decastar - 11.18s
+OlympicG - 10.92s
+```
+
+3. Who had the highest total points across both competitions?
+```{r,eval=FALSE}
+Sebrle - 17110 points
+```
+
+4. What was the shot-put scores for the top three competitors in each competition?
+```{r,eval=FALSE}
+Decaster:
+              1. Sebrle   - 14.83m
+              2. Clay     - 14.26m
+              3. Karpov   - 14.77m
+OlympicG:
+              1. Sebrle   - 16.36m
+              2. Clay     - 15.23m
+              3. Karpov   - 15.93m
+```
+
+5. What was the average points for competitiors who ran the 400m in less than 50
+   seconds vs. those than ran 400m in more than 50 seconds?
+```{r,eval=FALSE}
+Average points for competitors who ran 400m in less than 50s - 8120 points
+Average points for competitors who ran 400m in more than 50s - 7727 points
+```
+
+
+You can access the **Github Repo** [here](https://github.com/lloydlombardi/dirty_data_codeclan_project_lloyd_lombardi/tree/main/task_01_decathlon_data) 
