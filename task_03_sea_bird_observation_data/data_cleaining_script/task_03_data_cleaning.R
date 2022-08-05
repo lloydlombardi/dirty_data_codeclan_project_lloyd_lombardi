@@ -5,7 +5,7 @@ library(stringr)
 library(janitor)
 
 # Read in excel sheets
-bird_data <- read_xls("raw_data/seabirds.xls", sheet = "Bird data by record ID")
+bird_data <- read_xls("raw_data/seabirds.xls", sheet = "Bird data by record ID", guess_max = 30000)
 ship_data <- read_xls("raw_data/seabirds.xls", sheet = "Ship data by record ID")
 
 # Run clean names
