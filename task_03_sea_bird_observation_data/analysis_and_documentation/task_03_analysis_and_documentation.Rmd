@@ -57,7 +57,9 @@ seabird_data %>%
   filter(count == 1) %>% 
   group_by(common_name) %>% 
   count(common_name) %>% 
+  distinct(common_name) %>% 
   ungroup()
+  
 ```
 
 
